@@ -1,4 +1,51 @@
-{pkgs, ... }:{
+{pkgs, ... }:
+let
+  tex = (pkgs.texlive.combine {
+    inherit (pkgs.texlive) scheme-basic
+      dvisvgm dvipng # for preview and export as html
+      wrapfig amsmath ulem hyperref capt-of;
+      #(setq org-latex-compiler "lualatex")
+      #(setq org-preview-latex-default-process 'dvisvgm)
+  });
+in
+{
+  home.packages = with pkgs; [
+    # Qutebrowser deps:
+    python39Packages.adblock
+    # Coding:
+    tex
+    # Helix editor deps.
+    ltex-ls
+    texlab
+    # Dwm deps.
+    xmenu
+    gnumake
+    qutebrowser
+    polybar
+    # Etc.:
+    zathura
+    pavucontrol
+    neofetch
+    picom
+    rofi
+    xclip
+    flameshot
+    brightnessctl
+    xbanish
+    kitty
+    flashfocus
+    feh
+    wally-cli
+    spotify
+    vlc
+    losslesscut-bin
+    ffmpeg
+    whatsapp-for-linux
+    libreoffice
+
+
+  ];
+
   # Home Manager needs a bit of information about you and the
   # paths it should manage.
   home.username = "daniel";
@@ -18,34 +65,16 @@
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
   
-  home.packages = [
-    pkgs.zathura
-    pkgs.pavucontrol
-    pkgs.neofetch
-    pkgs.picom
-    pkgs.rofi
-    pkgs.xclip
-    pkgs.flameshot
-    pkgs.brightnessctl
-    pkgs.xbanish
-    pkgs.kitty
-    pkgs.flashfocus
-    pkgs.feh
-    pkgs.wally-cli
-    # Helix editor deps.
-    pkgs.ltex-ls
-    # Dwm deps.
-    pkgs.xmenu
-    pkgs.gnumake
-    pkgs.qutebrowser
-    pkgs.polybar
-  ];
   
   
   # Here's what's happening: I'm combining themes in a hacky way. Sourcing
   # One, declaring another. This will break. Looks great rn tho.
   programs.zsh = {
     enable = true;
+       initExtra = 
+      "
+      neofetch --config /home/daniel/.config/home-manager/extraconfig/neofetch.conf --kitty --image_size 200px --source /home/daniel/.config/home-manager/images/blossom.png --memory_percent on --memory_unit gib --os_arch off --packages tiny --shell_version off --color_blocks off
+      ";
     shellAliases = {
       ll = "ls -l";
       update = "sudo nixos-rebuild switch";
@@ -234,6 +263,8 @@
   };  
  
   
+  nixpkgs.config.allowUnfree = true;
+
   
   
 
