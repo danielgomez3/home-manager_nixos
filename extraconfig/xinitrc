@@ -1,0 +1,10 @@
+
+feh --bg-fill ~/.config/home-manager/Sakura.png &
+
+picom --experimental-backends --config ~/.config/home-manager/picom.conf &
+
+flashfocus &
+
+bash ~/.config/home-manager/monitor.sh &
+
+exec dwm 
