@@ -11,7 +11,7 @@ in
 {
   home.packages = with pkgs; [
     # Qutebrowser deps:
-    python39Packages.adblock
+    #python39Packages.adblock
     # Coding:
     tex
     # Helix editor deps.
