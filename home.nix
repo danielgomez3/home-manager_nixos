@@ -129,7 +129,7 @@ in
        map ctrl+shift+b previous_tab 
        map ctrl+shift+n next_window 
        map ctrl+shift+p previous_window 
-       map 0 close_window 
+       map ctrl+shift+0 close_window 
       # Dark One Nuanced by ariasuni, https://store.kde.org/p/1225908
       # Imported from KDE .colorscheme format by thematdev, https://thematdev.org
       # For migrating your schemes from Konsole format see 
@@ -371,6 +371,8 @@ color15                 #665c54
         " Ignore exit code:
         au TermClose * call feedkeys("i")
 
+        " KEEP PERSISTENT SPLITS SIZE:
+        autocmd VimResized * wincmd =
 
     '';
     plugins = [

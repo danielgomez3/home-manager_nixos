@@ -1,0 +1,10 @@
+[Unit]
+Description=AutoSSH tunnel service for desktop-daniel on local port 5000
+After=network.target
+
+[Service]
+Environment="AUTOSSH_GATETIME=0"
+ExecStart=autossh -M 0 -o "ServerAliveInterval 5" -o "ServerAliveCountMax 3" -NL 5000:localhost:3306 jodango@45.63.36.141 -p 22 -i /home/daniel/.ssh/desktop_key
+
+[Install]
+WantedBy=multi-user.target
