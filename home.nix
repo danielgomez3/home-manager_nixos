@@ -47,6 +47,8 @@ in
     ffmpeg
     whatsapp-for-linux
     libreoffice
+    sshfs
+    autossh
 
 
   ];
@@ -107,30 +109,6 @@ in
         theme = "sidebar";
       };  
   
-  # Helix editor:
-#  programs.helix.enable = false;
-#  programs.helix = {
-#    languages = [
-#      {
-#        name = "rust";
-#        auto-format = false;
-#      }
-#      {
-#        name = "markdown";
-#        language-server = {command = "ltex-ls";};
-#        file-types = ["md"];
-#        scope = "source.markdown";
-#        roots = [""];
-#      }
-#    ];
-#    settings = {
-#        theme = "catppuccin_frappe";
-#        editor = {
-#          line-number = "relative";
-#          rulers = [80];
-#        };
-#    };
-#  };
   
   
   # Kitty Terminal:
@@ -151,6 +129,7 @@ in
        map ctrl+shift+b previous_tab 
        map ctrl+shift+n next_window 
        map ctrl+shift+p previous_window 
+       map 0 close_window 
       # Dark One Nuanced by ariasuni, https://store.kde.org/p/1225908
       # Imported from KDE .colorscheme format by thematdev, https://thematdev.org
       # For migrating your schemes from Konsole format see 
@@ -350,15 +329,48 @@ color15                 #665c54
 	nnoremap <leader>ff <cmd>Telescope find_files<cr>
 	nnoremap <leader>fg <cmd>Telescope live_grep<cr>
 	nnoremap <leader>fb <cmd>Telescope buffers<cr>
-	nnoremap <leader>fh <cmd>Telescope help_tags<cr>
-	" Using Lua functions
-	nnoremap <leader>ff <cmd>lua require('telescope.builtin').find_files()<cr>
-	nnoremap <leader>fg <cmd>lua require('telescope.builtin').live_grep()<cr>
-	nnoremap <leader>fb <cmd>lua require('telescope.builtin').buffers()<cr>
-	nnoremap <leader>fh <cmd>lua require('telescope.builtin').help_tags()<cr>
+	nnoremap <leader>ft <cmd>Telescope help_tags<cr>
+	nnoremap <leader>fh <cmd>Telescope find_files hidden=true<cr>
+        "search hidden files:
+	nnoremap <leader>fh <cmd>Telescope find_files hidden=true<cr>
+        
 
         " VIEW FILE IN TWO COLLUMNS (leader+vs):
         noremap <silent> <Leader>vs :<C-u>let @z=&so<CR>:set so=0 noscb<CR>:bo vs<CR>Ljzt:setl scb<CR><C-w>p:setl scb<CR>:let &so=@z<CR>
+
+        " CUSTOM Terminal Function:
+        let g:term_buf = 0
+        let g:term_win = 0
+        function! TermToggle(height)
+            if win_gotoid(g:term_win)
+                hide
+            else
+                botright new
+                exec "resize " . a:height
+                try
+                    exec "buffer " . g:term_buf
+                catch
+                    call termopen($SHELL, {"detach": 0})
+                    let g:term_buf = bufnr("")
+                    set nonumber
+                    set norelativenumber
+                    set signcolumn=no
+                endtry
+                startinsert!
+                let g:term_win = win_getid()
+            endif
+        endfunction
+
+
+        " Toggle terminal on/off (neovim)
+        nnoremap <leader>ot :call TermToggle(12)<CR>
+        inoremap <A-t> <Esc>:call TermToggle(12)<CR>
+        tnoremap <A-t> <C-\><C-n>:call TermToggle(12)<CR>
+        tnoremap <C-w>N <C-\><C-n>
+        
+        " Ignore exit code:
+        au TermClose * call feedkeys("i")
+
 
     '';
     plugins = [
