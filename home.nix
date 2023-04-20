@@ -49,6 +49,7 @@ in
     libreoffice
     sshfs
     autossh
+    syncthing
 
 
   ];
@@ -330,7 +331,6 @@ color15                 #665c54
 	nnoremap <leader>fg <cmd>Telescope live_grep<cr>
 	nnoremap <leader>fb <cmd>Telescope buffers<cr>
 	nnoremap <leader>ft <cmd>Telescope help_tags<cr>
-	nnoremap <leader>fh <cmd>Telescope find_files hidden=true<cr>
         "search hidden files:
 	nnoremap <leader>fh <cmd>Telescope find_files hidden=true<cr>
         
@@ -422,6 +422,10 @@ color15                 #665c54
 
 
 
+
+
+
+  # Syncthing:
   
   
   
