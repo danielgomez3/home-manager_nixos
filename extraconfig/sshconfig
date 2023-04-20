@@ -1,0 +1,7 @@
+Host vultr
+  HostName 45.63.36.141 
+  Port 22
+  User jodango
+  IdentityFile ~/.ssh/desktop_key
+
+  # Prevent using ssh-agent or another keyfile, useful for testing
