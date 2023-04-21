@@ -13,10 +13,11 @@ vim.cmd([[colorscheme gruvbox]])
 
 
 
--- TELESCOPE:
+-- NVIM-LSPCONFIG
 require'lspconfig'.erlangls.setup{}
 require'lspconfig'.texlab.setup{}
 require'lspconfig'.ltex.setup{"markdown", "org", "tex"}
+
 vim.keymap.set('n', '<space>e', vim.diagnostic.open_float)
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
@@ -28,6 +29,11 @@ local actions = require("telescope.actions")
 
 require("telescope").setup({
     defaults = {
+			layout_config = {
+      horizontal = {
+        preview_cutoff = 0,
+      },
+    },
         mappings = {
             i = {
                 ["<esc>"] = actions.close,
@@ -104,19 +110,9 @@ set nohlsearch
 set background=light " or light if you want light mode
 set tabstop=4
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+" CUSTOM KEYBINDINGS
+"
+nnoremap <leader>sy :Startify<CR>
 " VIEW FILE IN TWO COLLUMNS (leader+vs):
 noremap <silent> <Leader>vs :<C-u>let @z=&so<CR>:set so=0 noscb<CR>:bo vs<CR>Ljzt:setl scb<CR><C-w>p:setl scb<CR>:let &so=@z<CR>
 
@@ -190,7 +186,7 @@ if has("nvim")
   \ { 's': '~/School/' },
   \ { 'p': '~/Projects/' },
   \ { 'h': '~/.config/home-manager/home.nix' },
-  \ { 'v': '~/.config/home-manager/extraconfig/nvim/vim.vimrc' },
+  \ { 'v': '~/.config/home-manager/extraconfig/nvim/vimrc.vim' },
   \ ]
 endif
 
@@ -291,7 +287,6 @@ let g:startify_custom_header_quotes = [
 	\ ['Fix the problem, not the blame.', '', "It doesn't really matter whether the bug is your fault or someone else's - it is still your problem, and it still needs to be fixed."],
 	\ ["\"select\" isn't broken.", '', 'It is rare to find a bug in the OS or the compiler, or even a third-party product or library. The bug is most likely in the application.'],
 	\ ['Learn a text manipulation language.', '', 'You spend a large part of each day working with text. Why not have the computer do some of it for you?'],
-	\ ["You can't write perfect software.", '', "Software can't be perfect. Protect your code and users from the inevitable errors."],
 	\ ['Crash early.', '', 'A dead program normally does a lot less damage than a crippled one.'],
 	\ ['Use exceptions for exceptional problems.', '', 'Exceptions can suffer from all the readability and maintainability problems of classic spaghetti code. Reserve exceptions for exceptional things.'],
 	\ ['Minimize coupling between modules.', '', 'Avoid coupling by writing "shy" code and applying the Law of Demeter.'],

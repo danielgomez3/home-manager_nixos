@@ -357,6 +357,12 @@ color15                 #665c54
      {
         plugin = pkgs.vimPlugins.nvim-web-devicons;
       }
+     {
+        plugin = pkgs.vimPlugins.telescope-file-browser-nvim;
+      }
+     {
+        plugin = pkgs.vimPlugins.telescope-media-files-nvim;
+      }
     
     ];
   };
