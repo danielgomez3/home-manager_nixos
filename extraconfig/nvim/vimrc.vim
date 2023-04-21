@@ -104,7 +104,8 @@ set nohlsearch
 set background=light " or light if you want light mode
 set tabstop=4
 
-"nnoremap <silent>a  <cmd>lua vim.lsp.buf.code_action()<CR>
+
+
 
 
 
@@ -174,8 +175,13 @@ autocmd VimResized * wincmd =
 
 
 " STARTIFY:
+let g:startify_session_dir = '~/.config/home-manager/extraconfig/nvim/sessions_nvim/'
+let g:startify_session_persistence = 1
+let g:startify_session_sort = 0
+
   let g:startify_lists = [
         \ { 'type': 'files', 'header': ['   MRU:'] },
+		\ { 'type': 'sessions',  'header': ['   Sessions']       },
 	   \ { 'header': ['    Bookmarks'], 'type': 'bookmarks' },
         \ ]
   

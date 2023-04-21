@@ -320,7 +320,7 @@ color15                 #665c54
 
   programs.neovim = {
     enable = true;
-    extraConfig = lib.fileContents "/home/daniel/.config/home-manager/extraconfig/nvim/vim.vimrc";
+    extraConfig = lib.fileContents "/home/daniel/.config/home-manager/extraconfig/nvim/vimrc.vim";
     plugins = [
       pkgs.vimPlugins.nvim-tree-lua
       {
@@ -343,18 +343,6 @@ color15                 #665c54
         plugin = pkgs.vimPlugins.vim-nix;
       }
       {
-        plugin = pkgs.vimPlugins.coc-nvim;
-      }
-      {
-        plugin = pkgs.vimPlugins.coc-git;
-      }
-      {
-        plugin = pkgs.vimPlugins.coc-texlab;
-      }
-      {
-        plugin = pkgs.vimPlugins.coc-pyright;
-      }
-     {
         plugin = pkgs.vimPlugins.telescope-nvim;
       }
      {
