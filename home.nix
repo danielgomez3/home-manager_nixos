@@ -1,4 +1,4 @@
-{pkgs, ... }:
+{pkgs, lib,... }:
 let
   tex = (pkgs.texlive.combine {
     inherit (pkgs.texlive) scheme-basic
@@ -117,7 +117,7 @@ in
     enable = true;
     #theme = "DarkOneNuanced";
     font.size = 10.0;
-    font.name = "Fira Code";
+    font.name = "Fira Code Symbols";
     settings = {
       enable_audio_bell = false;
       confirm_os_window_close = 0;
@@ -316,65 +316,7 @@ color15                 #665c54
 
   programs.neovim = {
     enable = true;
-    extraConfig = ''
-	set number relativenumber
-        nnoremap <SPACE> <Nop>
-        let mapleader = " "
-        set cursorline
-        "set cursorcolumn 
-        set colorcolumn=80 
-        set scrollbind
-
-
-	"TELESCOPE:
-	nnoremap <leader>ff <cmd>Telescope find_files<cr>
-	nnoremap <leader>fg <cmd>Telescope live_grep<cr>
-	nnoremap <leader>fb <cmd>Telescope buffers<cr>
-	nnoremap <leader>ft <cmd>Telescope help_tags<cr>
-        "search hidden files:
-	nnoremap <leader>fh <cmd>Telescope find_files hidden=true<cr>
-        
-
-        " VIEW FILE IN TWO COLLUMNS (leader+vs):
-        noremap <silent> <Leader>vs :<C-u>let @z=&so<CR>:set so=0 noscb<CR>:bo vs<CR>Ljzt:setl scb<CR><C-w>p:setl scb<CR>:let &so=@z<CR>
-
-        " CUSTOM Terminal Function:
-        let g:term_buf = 0
-        let g:term_win = 0
-        function! TermToggle(height)
-            if win_gotoid(g:term_win)
-                hide
-            else
-                botright new
-                exec "resize " . a:height
-                try
-                    exec "buffer " . g:term_buf
-                catch
-                    call termopen($SHELL, {"detach": 0})
-                    let g:term_buf = bufnr("")
-                    set nonumber
-                    set norelativenumber
-                    set signcolumn=no
-                endtry
-                startinsert!
-                let g:term_win = win_getid()
-            endif
-        endfunction
-
-
-        " Toggle terminal on/off (neovim)
-        nnoremap <leader>ot :call TermToggle(12)<CR>
-        inoremap <A-t> <Esc>:call TermToggle(12)<CR>
-        tnoremap <A-t> <C-\><C-n>:call TermToggle(12)<CR>
-        tnoremap <C-w>N <C-\><C-n>
-        
-        " Ignore exit code:
-        au TermClose * call feedkeys("i")
-
-        " KEEP PERSISTENT SPLITS SIZE:
-        autocmd VimResized * wincmd =
-
-    '';
+    extraConfig = lib.fileContents "/home/daniel/.config/home-manager/extraconfig/nvim/vim.vimrc";
     plugins = [
       pkgs.vimPlugins.nvim-tree-lua
       {
@@ -413,6 +355,9 @@ color15                 #665c54
       }
      {
         plugin = pkgs.vimPlugins.nvim-treesitter;
+      }
+     {
+        plugin = pkgs.vimPlugins.vim-startify;
       }
     
     ];
