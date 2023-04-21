@@ -40,6 +40,26 @@ require("telescope").setup({
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 EOF
 
 
@@ -161,7 +181,7 @@ if has("nvim")
   \ { 's': '~/School/' },
   \ { 'p': '~/Projects/' },
   \ { 'h': '~/.config/home-manager/home.nix' },
-  \ { 'v': '~/.config/home-manager/extraconfig/neovim/vimrc.vim' },
+  \ { 'v': '~/.config/home-manager/extraconfig/nvim/vim.vimrc' },
   \ ]
 endif
 

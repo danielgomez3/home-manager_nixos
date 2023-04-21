@@ -50,6 +50,8 @@ in
     sshfs
     autossh
     syncthing
+    hackgen-nf-font
+    terminus-nerdfont
 
 
   ];
@@ -116,15 +118,16 @@ in
   # Kitty Terminal:
   programs.kitty = {
     enable = true;
-    #theme = "DarkOneNuanced";
     font.size = 10.0;
-    font.name = "Fira Code Symbols";
+    font.name = "SauceCodePro Nerd Font";
+    #font.name = "Fira Code Nerd Font";
     settings = {
       enable_audio_bell = false;
       confirm_os_window_close = 0;
     };
     # This has to happen because kitty-theme derivation is broken:
     extraConfig = "
+      symbol_map U+f101-U+f21d nonicons
        map ctrl+shift+enter new_window_with_cwd 
        map ctrl+shift+t new_tab_with_cwd 
        map ctrl+shift+f next_tab 
@@ -359,6 +362,12 @@ color15                 #665c54
       }
      {
         plugin = pkgs.vimPlugins.vim-startify;
+      }
+     {
+        plugin = pkgs.vimPlugins.lualine-nvim;
+      }
+     {
+        plugin = pkgs.vimPlugins.nvim-web-devicons;
       }
     
     ];
