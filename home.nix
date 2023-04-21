@@ -89,6 +89,7 @@ in
     shellAliases = {
       ll = "ls -l";
       update = "sudo nixos-rebuild switch";
+      vi = "nvim";
     };
     oh-my-zsh = {
       enable = true;
