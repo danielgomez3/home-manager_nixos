@@ -37,7 +37,10 @@ require("telescope").setup({
 })
 
 
-
+-- Lualine
+require('lualine').get_config()
+require('lualine').setup()
+options = { theme = 'gruvbox_light' }
 
 
 
