@@ -14,6 +14,7 @@ in
     #python39Packages.adblock
     # Coding:
     tex
+    python
     # Neovim/Text editor deps.
     erlang-ls
     ltex-ls
@@ -53,6 +54,7 @@ in
     syncthing
     hackgen-nf-font
     terminus-nerdfont
+    pandoc
 
 
   ];

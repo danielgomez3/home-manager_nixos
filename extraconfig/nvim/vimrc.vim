@@ -254,7 +254,6 @@ inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 "Save curosr position in a file
 autocmd BufReadPost * if @% !~# '\.git[\/\\]COMMIT_EDITMSG$' && line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif 
 
-nnoremap <leader>sy :Startify<CR>
 
 " NEOVIM TERMINAL:
 let g:term_buf = 0
@@ -326,6 +325,7 @@ noremap <silent> <Leader>vs :<C-u>let @z=&so<CR>:set so=0 noscb<CR>:bo vs<CR>Ljz
 
 
 " STARTIFY:
+nnoremap <leader>st :Startify<CR>
 let g:startify_session_dir = '~/.config/home-manager/extraconfig/nvim/sessions_nvim/'
 let g:startify_session_persistence = 1
 let g:startify_session_sort = 0
@@ -637,8 +637,8 @@ let g:startify_custom_header =
 " TELESCOPE ADITIONAL:
 " TODO: port to lua
 "nnoremap <leader>fd <cmd>lua require('telescope.builtin').find_files({hidden=true,cwd = "~/"})<cr>
-nnoremap <leader>fg <cmd>Telescope live_grep<cr>
- nnoremap <leader>fd <cmd>lua require('telescope.builtin').find_files( { cwd = vim.fn.expand('%:p:h') }) hidden=true<cr>
+"nnoremap <leader>fg <cmd>Telescope live_grep<cr>
+"nnoremap <leader>fd <cmd>lua require('telescope.builtin').find_files( { cwd = vim.fn.expand('%:p:h') }) hidden=true<cr>
 nnoremap <leader>fd <cmd>Telescope find_files search_dirs=~/<cr>
 nnoremap <leader>fg <cmd>Telescope live_grep search_dirs=~/<cr>
 
