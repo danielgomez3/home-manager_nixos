@@ -364,9 +364,6 @@ color15                 #665c54
      {
         plugin = pkgs.vimPlugins.telescope-media-files-nvim;
       }
-     {
-        plugin = pkgs.vimPlugins.fzf-lua;
-      }
     
     ];
   };

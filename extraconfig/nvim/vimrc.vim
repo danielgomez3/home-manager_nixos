@@ -205,9 +205,6 @@ require("telescope").load_extension "file_browser"
 
 
 
--- FZF-LUA:
--- vim.keymap.set("n", "<c-P>",
---   "<cmd>lua require('fzf-lua').files()<CR>", { silent = true })
 
 
 
@@ -240,6 +237,10 @@ set scrollbind
 set nohlsearch
 set background=light " or light if you want light mode
 set tabstop=4
+autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o " Remove auto-comments
+" Tab Completion?
+inoremap <silent><expr> <TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
 
 
@@ -254,10 +255,8 @@ set tabstop=4
 autocmd BufReadPost * if @% !~# '\.git[\/\\]COMMIT_EDITMSG$' && line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif 
 
 nnoremap <leader>sy :Startify<CR>
-" VIEW A FILE IN TWO COLLUMNS (leader+vs):
-noremap <silent> <Leader>vs :<C-u>let @z=&so<CR>:set so=0 noscb<CR>:bo vs<CR>Ljzt:setl scb<CR><C-w>p:setl scb<CR>:let &so=@z<CR>
 
-" CUSTOM Terminal Function:
+" NEOVIM TERMINAL:
 let g:term_buf = 0
 let g:term_win = 0
 function! TermToggle(height)
@@ -286,14 +285,29 @@ endfunction
 nnoremap <leader>ot :call TermToggle(12)<CR>
 inoremap <A-t> <Esc>:call TermToggle(12)<CR>
 tnoremap <A-t> <C-\><C-n>:call TermToggle(12)<CR>
-tnoremap <C-w>N <C-\><C-n>
+
+" Leave terminal (this also makes ctrl-w not slow):
+tnoremap <C-[> <C-\><C-n>
+
+" Enter insert mode  when returning:
+autocmd BufWinEnter,WinEnter term://* startinsert
+
+
 
 " Ignore exit code:
 au TermClose * call feedkeys("i")
 
+
+" SPLITS:
 " KEEP PERSISTENT SPLITS SIZE:
 autocmd VimResized * wincmd =
-
+" EASIER SPLIT NAVIGATION:
+noremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
+" VIEW/split A FILE IN TWO COLLUMNS (leader+vs):
+noremap <silent> <Leader>vs :<C-u>let @z=&so<CR>:set so=0 noscb<CR>:bo vs<CR>Ljzt:setl scb<CR><C-w>p:setl scb<CR>:let &so=@z<CR>
 
 
 
@@ -622,15 +636,14 @@ let g:startify_custom_header =
 
 " TELESCOPE ADITIONAL:
 " TODO: port to lua
-"nnoremap <leader>ff <cmd>lua require('telescope.builtin').find_files({hidden=true,cwd = "~/"})<cr>
-" nnoremap <leader>fg <cmd>lua require('telescope.builtin').live_grep() hidden=true<cr>
-" nnoremap <leader>fr <cmd>lua require('telescope.builtin').buffers()<cr>
-" nnoremap <leader>fh <cmd>lua require('telescope.builtin').help_tags()<cr>
-" nnoremap <leader>f. <cmd>lua require('telescope.builtin').find_files( { cwd = vim.fn.expand('%:p:h') }) hidden=true<cr>
+"nnoremap <leader>fd <cmd>lua require('telescope.builtin').find_files({hidden=true,cwd = "~/"})<cr>
+nnoremap <leader>fg <cmd>Telescope live_grep<cr>
+ nnoremap <leader>fd <cmd>lua require('telescope.builtin').find_files( { cwd = vim.fn.expand('%:p:h') }) hidden=true<cr>
+nnoremap <leader>fd <cmd>Telescope find_files search_dirs=~/<cr>
+nnoremap <leader>fg <cmd>Telescope live_grep search_dirs=~/<cr>
 
 
 
-" FZF-NVIM:
-nnoremap <leader>fF <cmd>lua require('fzf-lua').files()<CR>
+
 
 
