@@ -70,6 +70,8 @@ options = { theme = 'gruvbox_light' }
 -- TELESCOPE FILE BROWSER
 
 -- open file_browser with the path of the current buffer
+local builtin = require('telescope.builtin')
+
 
  vim.api.nvim_set_keymap(
    "n",
@@ -202,6 +204,10 @@ require("telescope").load_extension "file_browser"
 
 
 
+
+-- FZF-LUA:
+-- vim.keymap.set("n", "<c-P>",
+--   "<cmd>lua require('fzf-lua').files()<CR>", { silent = true })
 
 
 
@@ -614,8 +620,9 @@ let g:startify_custom_header =
 
 
 
-" TELESCOPE:
-"" nnoremap <leader>ff <cmd>lua require('telescope.builtin').find_files({hidden=true,cwd = "~/"})<cr>
+" TELESCOPE ADITIONAL:
+" TODO: port to lua
+"nnoremap <leader>ff <cmd>lua require('telescope.builtin').find_files({hidden=true,cwd = "~/"})<cr>
 " nnoremap <leader>fg <cmd>lua require('telescope.builtin').live_grep() hidden=true<cr>
 " nnoremap <leader>fr <cmd>lua require('telescope.builtin').buffers()<cr>
 " nnoremap <leader>fh <cmd>lua require('telescope.builtin').help_tags()<cr>
@@ -623,5 +630,7 @@ let g:startify_custom_header =
 
 
 
+" FZF-NVIM:
+nnoremap <leader>fF <cmd>lua require('fzf-lua').files()<CR>
 
 

@@ -22,6 +22,7 @@ in
     ripgrep-all
     ripgrep
     fd
+    fzf
     # Dwm deps.
     xmenu
     gnumake
@@ -362,6 +363,9 @@ color15                 #665c54
       }
      {
         plugin = pkgs.vimPlugins.telescope-media-files-nvim;
+      }
+     {
+        plugin = pkgs.vimPlugins.fzf-lua;
       }
     
     ];
