@@ -1,4 +1,12 @@
 
+
+
+
+
+
+
+
+
 lua << EOF
 -- Basic Config
 vim.o.background = "light"
@@ -53,9 +61,43 @@ options = { theme = 'gruvbox_light' }
 
 
 
+-- To get telescope-file-browser loaded and working with telescope,
+-- you need to call load_extension, somewhere after setup function:
 
+-- open file_browser with the path of the current buffer
+require("telescope").load_extension "file_browser"
 
+vim.api.nvim_set_keymap(
+  "n",
+  "<space>f.",
+  ":Telescope file_browser path=%:p:h select_buffer=true<CR>",
+  { noremap = true }
+)
 
+vim.api.nvim_set_keymap(
+  "n",
+  "<space>ff",
+  ":Telescope file_browser",
+  { noremap = true }
+)
+
+local fb_actions = require "telescope".extensions.file_browser.actions
+-- mappings in file_browser extension of telescope.setup
+...
+      mappings = {
+        ["i"] = {
+          -- remap to going to home directory
+          ["<C-h>"] = fb_actions.goto_home_dir
+          ["<C-n>"] = fb_actions.create
+          ["<C-x>"] = function(prompt_bufnr)
+            -- your custom function
+          end
+        },
+        ["n"] = {
+          -- unmap toggling `fb_actions.toggle_browser`
+          f = false,
+        },
+...
 
 
 
@@ -480,11 +522,11 @@ let g:startify_custom_header =
 
 
 " TELESCOPE:
-nnoremap <leader>ff <cmd>lua require('telescope.builtin').find_files({hidden=true,cwd = "~/"})<cr>
-nnoremap <leader>fg <cmd>lua require('telescope.builtin').live_grep() hidden=true<cr>
-nnoremap <leader>fr <cmd>lua require('telescope.builtin').buffers()<cr>
-nnoremap <leader>fh <cmd>lua require('telescope.builtin').help_tags()<cr>
-nnoremap <leader>f. <cmd>lua require('telescope.builtin').find_files( { cwd = vim.fn.expand('%:p:h') }) hidden=true<cr>
+" nnoremap <leader>ff <cmd>lua require('telescope.builtin').find_files({hidden=true,cwd = "~/"})<cr>
+" nnoremap <leader>fg <cmd>lua require('telescope.builtin').live_grep() hidden=true<cr>
+" nnoremap <leader>fr <cmd>lua require('telescope.builtin').buffers()<cr>
+" nnoremap <leader>fh <cmd>lua require('telescope.builtin').help_tags()<cr>
+" nnoremap <leader>f. <cmd>lua require('telescope.builtin').find_files( { cwd = vim.fn.expand('%:p:h') }) hidden=true<cr>
 
 
 
