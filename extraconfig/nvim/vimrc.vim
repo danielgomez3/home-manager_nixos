@@ -84,7 +84,7 @@ local builtin = require('telescope.builtin')
  vim.api.nvim_set_keymap(
    "n",
    "<space>ff",
-   ":Telescope file_browser path=~/<CR>",
+   ":Telescope file_browser path=~<CR>",
    { noremap = true }
  )
 
@@ -236,7 +236,9 @@ set colorcolumn=80
 set scrollbind
 set nohlsearch
 set background=light " or light if you want light mode
-set tabstop=4
+set tabstop=2
+set shiftwidth=2
+set expandtab
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o " Remove auto-comments
 " Tab Completion?
 inoremap <silent><expr> <TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
@@ -277,6 +279,7 @@ cd %:p:h
 	startinsert!
 	let g:term_win = win_getid()
     endif
+  set wfh
 endfunction
 
 

@@ -17,6 +17,7 @@ in
     python
     # Neovim/Text editor deps.
     erlang-ls
+    erlang
     ltex-ls
     texlab
     nodejs
@@ -365,6 +366,9 @@ color15                 #665c54
       }
      {
         plugin = pkgs.vimPlugins.telescope-media-files-nvim;
+      }
+     {
+        plugin = pkgs.vimPlugins.vim-easymotion;
       }
     
     ];
