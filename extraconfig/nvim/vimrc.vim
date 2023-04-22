@@ -33,22 +33,26 @@ vim.keymap.set('n', '<space>d', vim.diagnostic.setloclist)
 vim.keymap.set({ 'n', 'v' }, '<space>a', vim.lsp.buf.code_action, opts)
 
 --Leave telescope single keypress:
-local actions = require("telescope.actions")
+-- local actions = require("telescope.actions")
+-- require("telescope").setup({
+--     defaults = {
+-- 			layout_config = {
+--       horizontal = {
+--         preview_cutoff = 0,
+--       },
+--     },
+--         mappings = {
+--             i = {
+--                 ["<esc>"] = actions.close,
+--             },
+--         },
+--     },
+-- })
 
-require("telescope").setup({
-    defaults = {
-			layout_config = {
-      horizontal = {
-        preview_cutoff = 0,
-      },
-    },
-        mappings = {
-            i = {
-                ["<esc>"] = actions.close,
-            },
-        },
-    },
-})
+
+
+
+
 
 
 -- Lualine
@@ -61,43 +65,140 @@ options = { theme = 'gruvbox_light' }
 
 
 
--- To get telescope-file-browser loaded and working with telescope,
--- you need to call load_extension, somewhere after setup function:
+
+
+-- TELESCOPE FILE BROWSER
 
 -- open file_browser with the path of the current buffer
-require("telescope").load_extension "file_browser"
 
-vim.api.nvim_set_keymap(
-  "n",
-  "<space>f.",
-  ":Telescope file_browser path=%:p:h select_buffer=true<CR>",
-  { noremap = true }
-)
+ vim.api.nvim_set_keymap(
+   "n",
+   "<space>f.",
+   ":Telescope file_browser path=%:p:h select_buffer=true<CR>",
+   { noremap = true }
+ )
+ 
+-- open in home dir
+ vim.api.nvim_set_keymap(
+   "n",
+   "<space>ff",
+   ":Telescope file_browser path=~/<CR>",
+   { noremap = true }
+ )
 
-vim.api.nvim_set_keymap(
-  "n",
-  "<space>ff",
-  ":Telescope file_browser",
-  { noremap = true }
-)
 
-local fb_actions = require "telescope".extensions.file_browser.actions
--- mappings in file_browser extension of telescope.setup
-...
+local status_ok, telescope = pcall(require, "telescope")
+if not status_ok then
+  return
+end
+
+local actions = require "telescope.actions"
+
+-- telescope.load_extension('media_files')
+-- telescope.load_extension('telescope_project')
+
+telescope.setup {
+  defaults = {
+    color_devicons = true,
+    prompt_prefix = " ",
+    selection_caret = " ",
+
+    mappings = {
+		-- Insert mode mappings
+      i = {
+        ["<C-n>"] = actions.cycle_history_next,
+        ["<C-p>"] = actions.cycle_history_prev,
+
+
+        ["<C-j>"] = actions.move_selection_next,
+        ["<C-k>"] = actions.move_selection_previous,
+
+        ["<C-c>"] = actions.close,
+
+
+        ["<CR>"] = actions.select_default,
+        ["<C-x>"] = actions.select_horizontal,
+        ["<C-v>"] = actions.select_vertical,
+        ["<C-t>"] = actions.select_tab,
+
+        ["<C-u>"] = actions.preview_scrolling_up,
+        ["<C-d>"] = actions.preview_scrolling_down,
+
+        ["<C-q>"] = actions.send_to_qflist + actions.open_qflist,
+        ["<M-q>"] = actions.send_selected_to_qflist + actions.open_qflist,
+        ["<C-l>"] = actions.complete_tag,
+        ["<C-_>"] = actions.which_key, -- keys from pressing <C-/>
+      },
+
+	  -- Normal Mode Mappings
+      n = {
+      },
+    },
+  },
+  pickers = {
+    -- Default configuration for builtin pickers goes here:
+    -- picker_name = {
+    --   picker_config_key = value,
+    --   ...
+    -- }
+    -- Now the picker_config_key will be applied every time you call this
+    -- builtin picker
+  },
+  extensions = {
+    media_files = {
+      -- filetypes whitelist
+      -- defaults to {"png", "jpg", "mp4", "webm", "pdf"}
+      filetypes = {"png", "webp", "jpg", "jpeg"},
+      find_cmd = "rg" -- find command (defaults to `fd`)
+    },
+    find_hidden = {
+      hidden_files = true -- default: false
+      }, -- Your extension configuration goes here:
+    -- extension_name = {
+    --   extension_config_key = value,
+    -- }
+    -- please take a look at the readme of the extension you want to configure
+  }
+}
+
+local file_browser_actions = require("telescope").extensions.file_browser.actions
+
+
+
+require("telescope").setup({
+  extensions = {
+    file_browser = {
+
+      -- disables netrw and use telescope-file-browser in its place
+      hijack_netrw = true,
       mappings = {
         ["i"] = {
-          -- remap to going to home directory
-          ["<C-h>"] = fb_actions.goto_home_dir
-          ["<C-n>"] = fb_actions.create
-          ["<C-x>"] = function(prompt_bufnr)
-            -- your custom function
-          end
+          -- your custom insert mode mappings
         },
         ["n"] = {
-          -- unmap toggling `fb_actions.toggle_browser`
-          f = false,
+				["c"] = file_browser_actions.create,
+				["y"] = file_browser_actions.copy,
+				["m"] = file_browser_actions.move,
+				["d"] = file_browser_actions.remove,
+				["r"] = file_browser_actions.rename,
+
+          -- your custom normal mode mappings
         },
-...
+      },
+    },
+  },
+  defaults = {
+    layout_config = {
+      horizontal = {
+        preview_cutoff = 0,
+      },
+    },
+  },
+})
+
+
+
+require("telescope").load_extension "file_browser"
 
 
 
@@ -122,24 +223,6 @@ EOF
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 " VIMSCRIPT
 set number relativenumber
 nnoremap <SPACE> <Nop>
@@ -152,10 +235,20 @@ set nohlsearch
 set background=light " or light if you want light mode
 set tabstop=4
 
-" CUSTOM KEYBINDINGS
+
+
+
+
+" 
+
+" Daniel CUSTOM settings/ KEYBINDINGS
 "
+
+"Save curosr position in a file
+autocmd BufReadPost * if @% !~# '\.git[\/\\]COMMIT_EDITMSG$' && line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g`\"" | endif 
+
 nnoremap <leader>sy :Startify<CR>
-" VIEW FILE IN TWO COLLUMNS (leader+vs):
+" VIEW A FILE IN TWO COLLUMNS (leader+vs):
 noremap <silent> <Leader>vs :<C-u>let @z=&so<CR>:set so=0 noscb<CR>:bo vs<CR>Ljzt:setl scb<CR><C-w>p:setl scb<CR>:let &so=@z<CR>
 
 " CUSTOM Terminal Function:
@@ -522,7 +615,7 @@ let g:startify_custom_header =
 
 
 " TELESCOPE:
-" nnoremap <leader>ff <cmd>lua require('telescope.builtin').find_files({hidden=true,cwd = "~/"})<cr>
+"" nnoremap <leader>ff <cmd>lua require('telescope.builtin').find_files({hidden=true,cwd = "~/"})<cr>
 " nnoremap <leader>fg <cmd>lua require('telescope.builtin').live_grep() hidden=true<cr>
 " nnoremap <leader>fr <cmd>lua require('telescope.builtin').buffers()<cr>
 " nnoremap <leader>fh <cmd>lua require('telescope.builtin').help_tags()<cr>
