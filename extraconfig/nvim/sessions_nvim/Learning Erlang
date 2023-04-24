@@ -1,0 +1,157 @@
+let SessionLoad = 1
+let s:so_save = &g:so | let s:siso_save = &g:siso | setg so=0 siso=0 | setl so=-1 siso=-1
+let v:this_session=expand("<sfile>:p")
+silent only
+silent tabonly
+cd ~
+if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
+  let s:wipebuf = bufnr('%')
+endif
+let s:shortmess_save = &shortmess
+if &shortmess =~ 'A'
+  set shortmess=aoOA
+else
+  set shortmess=aoO
+endif
+badd +1 School/erlang/learning_erlang/learning.erl
+badd +7 School/erlang/erlang_notes.md
+badd +9 School/erlang/learning_erlang/main.erl
+badd +92 .config/home-manager/extraconfig/nvim/sessions_nvim/Learning\ Erlang
+badd +33 term://~/School/erlang//1719486:/run/current-system/sw/bin/zsh
+badd +1 vim.vimrc
+badd +4 term://~/School/erlang/learning_erlang//1762311:erl
+badd +10 term://~/School/erlang//1791163:erl
+badd +4 term://~/School/erlang//1791861:erl
+badd +4 term://~/School/erlang//1791972:erl
+badd +4 term://~/School/erlang//1792010:erl
+badd +1 term://~/School/erlang/learning_erlang//1792151:erl
+badd +4 term://~/School/erlang/learning_erlang//1792186:erl
+badd +4 term://~/School/erlang//1792364:erl
+badd +4 term:///nix/store/x8lj733mfbmwzbl5ay3p2pc17m0y91vg-neovim-unwrapped-0.8.1/share/nvim/runtime/doc//1792458:erl
+badd +4 term://~/School/erlang/learning_erlang//1792569:erl
+badd +2 term://~/School/erlang//1792734:erl
+badd +4 term://~/School/erlang/learning_erlang//1801745:erl
+badd +4 term://~/School/erlang//1819342:erl
+badd +4 term://~/School/erlang/learning_erlang//1819596:erl
+badd +8 term://~/School/erlang//1828420:erl\ -interactive
+badd +43 term://~/School/erlang/learning_erlang//1828493:/run/current-system/sw/bin/zsh
+badd +6 term://~/School/erlang/learning_erlang//1828697:erl\ -mode\ interactive
+badd +1 term://~/School/erlang/learning_erlang//1829434:erl\ -mode\ interactive
+badd +4 term://~/School/erlang//1854596:erl\ -mode\ interactive\ -kernel\ shell_history\ enabled
+badd +10 term://~/School/erlang//1873845:erl\ -mode\ interactive\ -kernel\ shell_history\ enabled
+badd +0 term://~/School/erlang/learning_erlang//1873942:erl\ -mode\ interactive\ -kernel\ shell_history\ enabled
+argglobal
+%argdel
+edit School/erlang/erlang_notes.md
+let s:save_splitbelow = &splitbelow
+let s:save_splitright = &splitright
+set splitbelow splitright
+wincmd _ | wincmd |
+split
+1wincmd k
+wincmd _ | wincmd |
+vsplit
+1wincmd h
+wincmd w
+wincmd w
+let &splitbelow = s:save_splitbelow
+let &splitright = s:save_splitright
+wincmd t
+let s:save_winminheight = &winminheight
+let s:save_winminwidth = &winminwidth
+set winminheight=0
+set winheight=1
+set winminwidth=0
+set winwidth=1
+exe '1resize ' . ((&lines * 49 + 31) / 62)
+exe 'vert 1resize ' . ((&columns * 30 + 57) / 115)
+exe '2resize ' . ((&lines * 49 + 31) / 62)
+exe 'vert 2resize ' . ((&columns * 84 + 57) / 115)
+exe '3resize ' . ((&lines * 10 + 31) / 62)
+argglobal
+balt School/erlang/learning_erlang/main.erl
+setlocal fdm=manual
+setlocal fde=0
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=0
+setlocal fml=1
+setlocal fdn=20
+setlocal fen
+silent! normal! zE
+let &fdl = &fdl
+let s:l = 10 - ((0 * winheight(0) + 24) / 49)
+if s:l < 1 | let s:l = 1 | endif
+keepjumps exe s:l
+normal! zt
+keepjumps 10
+normal! 0
+wincmd w
+argglobal
+if bufexists(fnamemodify("School/erlang/learning_erlang/main.erl", ":p")) | buffer School/erlang/learning_erlang/main.erl | else | edit School/erlang/learning_erlang/main.erl | endif
+if &buftype ==# 'terminal'
+  silent file School/erlang/learning_erlang/main.erl
+endif
+balt School/erlang/erlang_notes.md
+setlocal fdm=manual
+setlocal fde=0
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=0
+setlocal fml=1
+setlocal fdn=20
+setlocal fen
+silent! normal! zE
+let &fdl = &fdl
+let s:l = 13 - ((3 * winheight(0) + 24) / 49)
+if s:l < 1 | let s:l = 1 | endif
+keepjumps exe s:l
+normal! zt
+keepjumps 13
+normal! 0
+wincmd w
+argglobal
+if bufexists(fnamemodify("term://~/School/erlang/learning_erlang//1873942:erl\ -mode\ interactive\ -kernel\ shell_history\ enabled", ":p")) | buffer term://~/School/erlang/learning_erlang//1873942:erl\ -mode\ interactive\ -kernel\ shell_history\ enabled | else | edit term://~/School/erlang/learning_erlang//1873942:erl\ -mode\ interactive\ -kernel\ shell_history\ enabled | endif
+if &buftype ==# 'terminal'
+  silent file term://~/School/erlang/learning_erlang//1873942:erl\ -mode\ interactive\ -kernel\ shell_history\ enabled
+endif
+balt School/erlang/learning_erlang/main.erl
+setlocal fdm=manual
+setlocal fde=0
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=0
+setlocal fml=1
+setlocal fdn=20
+setlocal fen
+let s:l = 13 - ((9 * winheight(0) + 5) / 10)
+if s:l < 1 | let s:l = 1 | endif
+keepjumps exe s:l
+normal! zt
+keepjumps 13
+normal! 03|
+wincmd w
+2wincmd w
+exe '1resize ' . ((&lines * 49 + 31) / 62)
+exe 'vert 1resize ' . ((&columns * 30 + 57) / 115)
+exe '2resize ' . ((&lines * 49 + 31) / 62)
+exe 'vert 2resize ' . ((&columns * 84 + 57) / 115)
+exe '3resize ' . ((&lines * 10 + 31) / 62)
+tabnext 1
+if exists('s:wipebuf') && len(win_findbuf(s:wipebuf)) == 0 && getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'
+  silent exe 'bwipe ' . s:wipebuf
+endif
+unlet! s:wipebuf
+set winheight=1 winwidth=20
+let &shortmess = s:shortmess_save
+let &winminheight = s:save_winminheight
+let &winminwidth = s:save_winminwidth
+let s:sx = expand("<sfile>:p:r")."x.vim"
+if filereadable(s:sx)
+  exe "source " . fnameescape(s:sx)
+endif
+let &g:so = s:so_save | let &g:siso = s:siso_save
+nohlsearch
+doautoall SessionLoadPost
+unlet SessionLoad
+" vim: set ft=vim :

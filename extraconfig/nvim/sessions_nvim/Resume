@@ -1,0 +1,136 @@
+let SessionLoad = 1
+let s:so_save = &g:so | let s:siso_save = &g:siso | setg so=0 siso=0 | setl so=-1 siso=-1
+let v:this_session=expand("<sfile>:p")
+silent only
+silent tabonly
+cd ~
+if expand('%') == '' && !&modified && line('$') <= 1 && getline(1) == ''
+  let s:wipebuf = bufnr('%')
+endif
+let s:shortmess_save = &shortmess
+if &shortmess =~ 'A'
+  set shortmess=aoOA
+else
+  set shortmess=aoO
+endif
+badd +32 home/daniel/School/resume_school/main.tex
+badd +37 term://~/home/daniel/School/resume_school//2116947:/run/current-system/sw/bin/zsh
+badd +1 home/daniel/School/resume_school/makefile
+badd +1 home/daniel/School/resume_school/draft.md
+badd +38 term://~/home/daniel/School/resume_school//2246590:/run/current-system/sw/bin/zsh
+badd +0 term://~/home/daniel/School/resume_school//2266127:/run/current-system/sw/bin/zsh
+argglobal
+%argdel
+edit home/daniel/School/resume_school/main.tex
+let s:save_splitbelow = &splitbelow
+let s:save_splitright = &splitright
+set splitbelow splitright
+wincmd _ | wincmd |
+split
+1wincmd k
+wincmd _ | wincmd |
+vsplit
+1wincmd h
+wincmd w
+wincmd w
+let &splitbelow = s:save_splitbelow
+let &splitright = s:save_splitright
+wincmd t
+let s:save_winminheight = &winminheight
+let s:save_winminwidth = &winminwidth
+set winminheight=0
+set winheight=1
+set winminwidth=0
+set winwidth=1
+exe '1resize ' . ((&lines * 47 + 31) / 62)
+exe 'vert 1resize ' . ((&columns * 84 + 57) / 115)
+exe '2resize ' . ((&lines * 47 + 31) / 62)
+exe 'vert 2resize ' . ((&columns * 30 + 57) / 115)
+exe '3resize ' . ((&lines * 12 + 31) / 62)
+argglobal
+balt home/daniel/School/resume_school/makefile
+setlocal fdm=manual
+setlocal fde=0
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=0
+setlocal fml=1
+setlocal fdn=20
+setlocal fen
+silent! normal! zE
+let &fdl = &fdl
+let s:l = 65 - ((0 * winheight(0) + 23) / 47)
+if s:l < 1 | let s:l = 1 | endif
+keepjumps exe s:l
+normal! zt
+keepjumps 65
+normal! 0
+wincmd w
+argglobal
+if bufexists(fnamemodify("home/daniel/School/resume_school/draft.md", ":p")) | buffer home/daniel/School/resume_school/draft.md | else | edit home/daniel/School/resume_school/draft.md | endif
+if &buftype ==# 'terminal'
+  silent file home/daniel/School/resume_school/draft.md
+endif
+balt home/daniel/School/resume_school/main.tex
+setlocal fdm=manual
+setlocal fde=0
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=0
+setlocal fml=1
+setlocal fdn=20
+setlocal fen
+silent! normal! zE
+let &fdl = &fdl
+let s:l = 51 - ((20 * winheight(0) + 23) / 47)
+if s:l < 1 | let s:l = 1 | endif
+keepjumps exe s:l
+normal! zt
+keepjumps 51
+normal! 0
+wincmd w
+argglobal
+if bufexists(fnamemodify("term://~/home/daniel/School/resume_school//2266127:/run/current-system/sw/bin/zsh", ":p")) | buffer term://~/home/daniel/School/resume_school//2266127:/run/current-system/sw/bin/zsh | else | edit term://~/home/daniel/School/resume_school//2266127:/run/current-system/sw/bin/zsh | endif
+if &buftype ==# 'terminal'
+  silent file term://~/home/daniel/School/resume_school//2266127:/run/current-system/sw/bin/zsh
+endif
+balt home/daniel/School/resume_school/main.tex
+setlocal fdm=manual
+setlocal fde=0
+setlocal fmr={{{,}}}
+setlocal fdi=#
+setlocal fdl=0
+setlocal fml=1
+setlocal fdn=20
+setlocal fen
+let s:l = 33 - ((11 * winheight(0) + 6) / 12)
+if s:l < 1 | let s:l = 1 | endif
+keepjumps exe s:l
+normal! zt
+keepjumps 33
+normal! 0
+wincmd w
+3wincmd w
+exe '1resize ' . ((&lines * 47 + 31) / 62)
+exe 'vert 1resize ' . ((&columns * 84 + 57) / 115)
+exe '2resize ' . ((&lines * 47 + 31) / 62)
+exe 'vert 2resize ' . ((&columns * 30 + 57) / 115)
+exe '3resize ' . ((&lines * 12 + 31) / 62)
+tabnext 1
+if exists('s:wipebuf') && len(win_findbuf(s:wipebuf)) == 0 && getbufvar(s:wipebuf, '&buftype') isnot# 'terminal'
+  silent exe 'bwipe ' . s:wipebuf
+endif
+unlet! s:wipebuf
+set winheight=1 winwidth=20
+let &shortmess = s:shortmess_save
+let &winminheight = s:save_winminheight
+let &winminwidth = s:save_winminwidth
+let s:sx = expand("<sfile>:p:r")."x.vim"
+if filereadable(s:sx)
+  exe "source " . fnameescape(s:sx)
+endif
+let &g:so = s:so_save | let &g:siso = s:siso_save
+nohlsearch
+doautoall SessionLoadPost
+unlet SessionLoad
+" vim: set ft=vim :

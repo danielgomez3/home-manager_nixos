@@ -1,7 +1,7 @@
 {pkgs, lib,... }:
 let
   tex = (pkgs.texlive.combine {
-    inherit (pkgs.texlive) scheme-basic
+    inherit (pkgs.texlive) scheme-full
       dvisvgm dvipng # for preview and export as html
       wrapfig amsmath ulem hyperref capt-of;
       #(setq org-latex-compiler "lualatex")
@@ -9,12 +9,17 @@ let
   });
 in
 {
-  home.packages = with pkgs; [
+  home.packages = with pkgs;
+    let
+      R-with-my-packages = rWrapper.override{ packages = with rPackages; [ ggplot2 dplyr xts tidyverse ggthemes]; };
+    in
+  [
     # Qutebrowser deps:
     #python39Packages.adblock
     # Coding:
     tex
     python
+    R-with-my-packages
     # Neovim/Text editor deps.
     erlang-ls
     erlang
@@ -56,6 +61,8 @@ in
     hackgen-nf-font
     terminus-nerdfont
     pandoc
+    tmux
+    xfce.ristretto
 
 
   ];
@@ -342,6 +349,9 @@ color15                 #665c54
         lua require'lspconfig'.ltex.setup{"markdown", "org", "tex"}
         '';
       }
+      {
+        plugin = pkgs.vimPlugins.packer-nvim;
+      }
 
       {
         plugin = pkgs.vimPlugins.vim-nix;
@@ -365,10 +375,10 @@ color15                 #665c54
         plugin = pkgs.vimPlugins.telescope-file-browser-nvim;
       }
      {
-        plugin = pkgs.vimPlugins.telescope-media-files-nvim;
+        plugin = pkgs.vimPlugins.vim-easymotion;
       }
      {
-        plugin = pkgs.vimPlugins.vim-easymotion;
+        plugin = pkgs.vimPlugins.vim-surround;
       }
     
     ];
@@ -376,6 +386,31 @@ color15                 #665c54
   
 
 
+
+  # Helix editor:
+  programs.helix.enable = true;
+  programs.helix = {
+    languages = [
+      {
+        name = "rust";
+        auto-format = false;
+      }
+      {
+        name = "markdown";
+        language-server = {command = "ltex-ls";};
+        file-types = ["md"];
+        scope = "source.markdown";
+        roots = [""];
+      }
+    ];
+    settings = {
+        theme = "gruvbox_light";
+        editor = {
+          line-number = "relative";
+          rulers = [80];
+        };
+    };
+  };
 
 
 
