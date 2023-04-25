@@ -329,8 +329,9 @@ color15                 #665c54
   
   # Neovim
 
-  programs.neovim = {
+   programs.neovim = {
     enable = true;
+    defaultEditor = true;
     extraConfig = lib.fileContents "/home/daniel/.config/home-manager/extraconfig/nvim/vimrc.vim";
     plugins = [
       pkgs.vimPlugins.nvim-tree-lua
