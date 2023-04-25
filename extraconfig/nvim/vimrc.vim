@@ -529,6 +529,26 @@ let g:startify_custom_header =
 
 
 
+" EASYMOTION:
+
+" <Leader>f{char} to move to {char}
+map  f <Plug>(easymotion-bd-f)
+nmap f <Plug>(easymotion-overwin-f)
+
+" s{char}{char} to move to {char}{char}
+nmap s <Plug>(easymotion-overwin-f2)
+
+" Move to line
+map <Leader>L <Plug>(easymotion-bd-jk)
+nmap <Leader>L <Plug>(easymotion-overwin-line)
+
+" Move to word
+map  <Leader>w <Plug>(easymotion-bd-w)
+nmap <Leader>w <Plug>(easymotion-overwin-w)
+
+
+autocmd VimResized * wincmd =
+set noequalalways
 
 
 
@@ -554,30 +574,20 @@ nnoremap <leader>fg <cmd>Telescope live_grep search_dirs=~/<cr>
 
 " DANIEL's CUSTOM FUNCTIONS:
 
-" Erlang custom terminal session:
 function! ErlTerm()
     cd %:p:h | botright new | res 10 | exe "term erl -mode interactive -kernel shell_history enabled" | cd - | 2 wincmd w | stopinsert
-
 endfunction
 
 
-" EASYMOTION:
+" Open pdfs:
+function! Cse381()
+  silent !zathura ~/School/erlang/cse381/*.pdf &
+  silent !zathura ~/School/erlang/cse381/grading/*.pdf &
+endfunction
 
-" <Leader>f{char} to move to {char}
-map  f <Plug>(easymotion-bd-f)
-nmap f <Plug>(easymotion-overwin-f)
-
-" s{char}{char} to move to {char}{char}
-nmap s <Plug>(easymotion-overwin-f2)
-
-" Move to line
-map <Leader>L <Plug>(easymotion-bd-jk)
-nmap <Leader>L <Plug>(easymotion-overwin-line)
-
-" Move to word
-map  <Leader>w <Plug>(easymotion-bd-w)
-nmap <Leader>w <Plug>(easymotion-overwin-w)
+function! Cse481()
+  silent !zathura ~/School/erlang/cse481/*.pdf &
+  silent !zathura ~/School/erlang/cse481/grading/*.pdf &
+endfunction
 
 
-autocmd VimResized * wincmd =
-set noequalalways
