@@ -57,12 +57,12 @@ in
     libreoffice
     sshfs
     autossh
-    syncthing
     hackgen-nf-font
     terminus-nerdfont
     pandoc
     tmux
     xfce.ristretto
+    poppler_utils # Used for pdf and png conversion
 
 
   ];
@@ -379,6 +379,9 @@ color15                 #665c54
       }
      {
         plugin = pkgs.vimPlugins.vim-surround;
+      }
+     {
+        plugin = pkgs.vimPlugins.markdown-preview-nvim;
       }
     
     ];
