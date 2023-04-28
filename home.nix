@@ -97,7 +97,7 @@ in
     enable = true;
        initExtra = 
       "
-      neofetch --config /home/daniel/.config/home-manager/extraconfig/neofetch.conf --kitty --image_size none --source /home/daniel/.config/home-manager/images/blossom.png --memory_percent on --memory_unit gib --os_arch off --packages tiny --shell_version off --color_blocks on
+      neofetch --config /home/daniel/.config/home-manager/extraconfig/neofetch.conf --kitty --image_size none --source /home/daniel/.config/home-manager/images/blossomsmall.png --memory_percent on --memory_unit gib --os_arch off --packages tiny --shell_version off --color_blocks on
       ";
     shellAliases = {
       ll = "ls -l";

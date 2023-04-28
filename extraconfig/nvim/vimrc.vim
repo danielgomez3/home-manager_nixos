@@ -583,11 +583,13 @@ endfunction
 function! Cse381()
   silent !zathura ~/School/erlang/cse381/*.pdf &
   silent !zathura ~/School/erlang/cse381/grading/*.pdf &
+  silent !zathura ~/School/erlang/*.pdf &
 endfunction
 
 function! Cse481()
   silent !zathura ~/School/erlang/cse481/*.pdf &
   silent !zathura ~/School/erlang/cse481/grading/*.pdf &
+  silent !zathura ~/School/erlang/*.pdf &
 endfunction
 
 
