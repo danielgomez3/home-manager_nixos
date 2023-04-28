@@ -38,7 +38,6 @@ in
     # Etc.:
     zathura
     pavucontrol
-    neofetch
     picom
     rofi
     xclip
@@ -93,26 +92,24 @@ in
   
   # Here's what's happening: I'm combining themes in a hacky way. Sourcing
   # One, declaring another. This will break. Looks great rn tho.
-  programs.zsh = {
-    enable = true;
-       initExtra = 
-      "
-      neofetch --config /home/daniel/.config/home-manager/extraconfig/neofetch.conf --kitty --image_size none --source /home/daniel/.config/home-manager/images/blossomsmall.png --memory_percent on --memory_unit gib --os_arch off --packages tiny --shell_version off --color_blocks on
-      ";
-    shellAliases = {
-      ll = "ls -l";
-      update = "sudo nixos-rebuild switch";
-      vi = "nvim";
-    };
-    oh-my-zsh = {
-      enable = true;
-      plugins = [ "git"];
-      # Really Good, Minimal, Time, Git.
-      theme = "dst"; 
-    };
-  };
-  
-  
+#  programs.zsh = {
+#    enable = true;
+#       initExtra = 
+#      "
+#      neofetch --config /home/daniel/.config/home-manager/extraconfig/neofetch.conf --kitty --image_size none --source /home/daniel/.config/home-manager/images/blossomsmall.png --memory_percent on --memory_unit gib --os_arch off --packages tiny --shell_version off --color_blocks on
+#      ";
+#    shellAliases = {
+#      ll = "ls -l";
+#      update = "sudo nixos-rebuild switch";
+#      vi = "nvim";
+#    };
+#    oh-my-zsh = {
+#      enable = true;
+#      plugins = [ "git"];
+#      # Really Good, Minimal, Time, Git.
+#      theme = "dst"; 
+#    };
+#  };
   
 
   
@@ -383,6 +380,9 @@ color15                 #665c54
       }
      {
         plugin = pkgs.vimPlugins.markdown-preview-nvim;
+      }
+     {
+        plugin = pkgs.vimPlugins.vim-fugitive;
       }
     
     ];
