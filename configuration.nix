@@ -65,9 +65,10 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    wget curl iwd dhcpcd neovim 
+    wget curl iwd dhcpcd neovim
     git cachix 
-    st chromium rofi dmenu source-code-pro 
+    st chromium rofi dmenu source-code-pro neofetch
+    sshfs fuse
 
   ];
 
@@ -121,9 +122,20 @@
 	
 
   # Shell (needs to be done here and home.nix):
-  programs.zsh.enable = true;
-  users.users.daniel.shell = pkgs.zsh;
-  environment.shells = with pkgs; [ zsh ]; # For errors.
+  #users.users.daniel.shell = pkgs.zsh;
+  #environment.shells = with pkgs; [ zsh ]; # For errors.
+  #programs.zsh = {
+  #enable = true;
+  #histSize = 2000;
+  #histFile = "$HOME/.zsh_history";
+  #shellAliases = {
+  #    ll = "ls -l";
+  #    update = "sudo nixos-rebuild switch";
+  #    vi = "nvim";
+  #};
+  #};
+
+
 
   
   # Dwm:
@@ -189,21 +201,48 @@
 
 
 
-  services = {
-    syncthing = {
-        enable = true;
-        user = "daniel";
-        dataDir = "/home/daniel/School/";    # Default folder for new synced folders
-        configDir = "/home/daniel/.config/syncthing";   # Folder for Syncthing's settings and keys
-    };
-};
+#  services = {
+#    syncthing = {
+#        enable = true;
+#        user = "daniel";
+#        dataDir = "/home/daniel/School/";    # Default folder for new synced folders
+#        configDir = "/home/daniel/.config/syncthing";   # Folder for Syncthing's settings and keys
+#    };
+#};
 
 
 
 fonts.fonts = with pkgs; [
-  (nerdfonts.override { fonts = [ "FiraCode" "SourceCodePro" "liberation_ttf"]; })
+  (nerdfonts.override { fonts = [ "FiraCode" "SourceCodePro"]; })
 ];
 
+
+
+
+
+systemd.mounts = [
+  {
+  what = "jodango@45.63.36.141:/home/jodango/School/";
+  where = "/home/daniel/School";
+  type = "fuse.sshfs";
+  options = "identityfile=/home/daniel/.ssh/desktop_key,allow_other,user,reconnect,ServerAliveInterval=5,delay_connect,ConnectTimeout=5";
+  wantedBy = [ "multi-user.target" ];
+  }
+];
+
+
+  users.defaultUserShell = pkgs.bash;
+  programs.bash = {
+    enableCompletion = true;
+    shellAliases = {
+      ll = "ls -l";
+      update = "sudo nixos-rebuild switch";
+      vi = "nvim";
+    };
+    shellInit = "
+      neofetch --config /home/daniel/.config/home-manager/extraconfig/neofetch.conf --kitty --image_size none --source /home/daniel/.config/home-manager/images/blossomsmall.png --memory_percent on --memory_unit gib --os_arch off --packages tiny --shell_version off --color_blocks on
+    ";
+  }; 
 
 
 

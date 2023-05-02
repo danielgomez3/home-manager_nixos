@@ -227,7 +227,7 @@ set cursorline
 set colorcolumn=80 
 set scrollbind
 set nohlsearch
-set background=light " or light if you want light mode
+set background=light 
 set tabstop=2
 set shiftwidth=2
 set expandtab
@@ -271,7 +271,7 @@ cd %:p:h
 	try
 	    exec "buffer " . g:term_buf
 	catch
-	    call termopen($SHELL, {"detach": 0})
+      call termopen($SHELL, {"detach": 0})
 	    let g:term_buf = bufnr("")
 	    set nonumber
 	    set norelativenumber

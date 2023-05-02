@@ -35,6 +35,10 @@ in
     gnumake
     qutebrowser
     polybar
+    # Xournalpp
+    xournalpp
+    llvmPackages_rocm.clangNoCompilerRt
+    gtk3 
     # Etc.:
     zathura
     pavucontrol
@@ -62,6 +66,9 @@ in
     tmux
     xfce.ristretto
     poppler_utils # Used for pdf and png conversion
+    unzip
+    gnome3.adwaita-icon-theme
+
 
 
   ];
@@ -92,24 +99,7 @@ in
   
   # Here's what's happening: I'm combining themes in a hacky way. Sourcing
   # One, declaring another. This will break. Looks great rn tho.
-#  programs.zsh = {
-#    enable = true;
-#       initExtra = 
-#      "
-#      neofetch --config /home/daniel/.config/home-manager/extraconfig/neofetch.conf --kitty --image_size none --source /home/daniel/.config/home-manager/images/blossomsmall.png --memory_percent on --memory_unit gib --os_arch off --packages tiny --shell_version off --color_blocks on
-#      ";
-#    shellAliases = {
-#      ll = "ls -l";
-#      update = "sudo nixos-rebuild switch";
-#      vi = "nvim";
-#    };
-#    oh-my-zsh = {
-#      enable = true;
-#      plugins = [ "git"];
-#      # Really Good, Minimal, Time, Git.
-#      theme = "dst"; 
-#    };
-#  };
+
   
 
   
@@ -140,7 +130,7 @@ in
        map ctrl+shift+t new_tab_with_cwd 
        map ctrl+shift+f next_tab 
        map ctrl+shift+b previous_tab 
-       map ctrl+shift+n next_window 
+       map ctrl+shift+j next_window 
        map ctrl+shift+p previous_window 
        map ctrl+shift+0 close_window 
       # Dark One Nuanced by ariasuni, https://store.kde.org/p/1225908
@@ -420,8 +410,15 @@ color15                 #665c54
 
 
 
-  # Syncthing:
-  
+  # ZSH:
+#  programs.zsh = {
+#  enable = true;
+# initExtra = 
+#    "
+#    neofetch --config /home/daniel/.config/home-manager/extraconfig/neofetch.conf --kitty --image_size none --source /home/daniel/.config/home-manager/images/blossomsmall.png --memory_percent on --memory_unit gib --os_arch off --packages tiny --shell_version off --color_blocks on
+#    ";
+#  };
+
   
   
 
