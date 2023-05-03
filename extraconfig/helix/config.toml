@@ -1,0 +1,11 @@
+theme = "gruvbox_light"
+
+[editor]
+line-number = "relative"
+mouse = false
+
+[editor.soft-wrap]
+enable = true
+
+[editor.lsp]
+display-inlay-hints = true
