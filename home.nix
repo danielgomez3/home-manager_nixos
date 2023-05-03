@@ -1,5 +1,6 @@
 {pkgs, lib,... }:
 let
+  unstable = import <nixos-unstable> { config = { allowUnfree = true; }; };
   tex = (pkgs.texlive.combine {
     inherit (pkgs.texlive) scheme-full
       dvisvgm dvipng # for preview and export as html
@@ -68,6 +69,9 @@ in
     poppler_utils # Used for pdf and png conversion
     unzip
     gnome3.adwaita-icon-theme
+    # Helix editor
+    unstable.helix
+    marksman
 
 
 
@@ -285,7 +289,7 @@ color15                 #665c54
   };
 
   
-  # Picom
+  # Overlays
   nixpkgs.overlays = [ (self: super: {
     picom = super.picom.overrideAttrs (old: {
           src = pkgs.fetchFromGitHub {
@@ -296,7 +300,9 @@ color15                 #665c54
             };
       });
   }) ];
-    services.picom = {
+
+
+  services.picom = {
     extraArgs = 
     ["--config /home/danie/.config/home-manager/picom.conf"
     "--experimental-backends"];
@@ -381,31 +387,37 @@ color15                 #665c54
 
 
 
-  # Helix editor:
-  programs.helix.enable = true;
-  programs.helix = {
-    languages = [
-      {
-        name = "rust";
-        auto-format = false;
-      }
-      {
-        name = "markdown";
-        language-server = {command = "ltex-ls";};
-        file-types = ["md"];
-        scope = "source.markdown";
-        roots = [""];
-      }
-    ];
-    settings = {
-        theme = "gruvbox_light";
-        editor = {
-          line-number = "relative";
-          rulers = [80];
-        };
-    };
-  };
-
+#  # Helix editor:
+#  programs.helix = {
+#  languages = [
+#      {
+#        name = "rust";
+#        auto-format = false;
+#      }
+#      {
+#        name = "markdown";
+#        language-server = {command = "ltex-ls";};
+#        file-types = ["md"];
+#        scope = "source.markdown";
+#        roots = [""];
+#      }
+#    ];
+#    settings = {
+#      theme = "gruvbox_light";
+#      editor.soft-wrap = {
+#          enable = true;
+#          max-wrap = 25;
+#        };
+#      editor = {
+#        line-number = "relative";
+#        rulers = [80];
+##        lsp = {
+##          display-inlay-hints = true;
+##        };
+#      };
+#    };
+#  };
+#
 
 
 
@@ -419,7 +431,9 @@ color15                 #665c54
 #    ";
 #  };
 
-  
-  
+
+
+
+
 
 }
