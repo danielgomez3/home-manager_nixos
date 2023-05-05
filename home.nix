@@ -127,128 +127,122 @@ in
     };
     # This has to happen because kitty-theme derivation is broken:
     extraConfig = "
+    startup_session $HOME/.config/home-manager/extraconfig/kitty-sessions/school.conf
+      # BUG FIX:
       symbol_map U+f101-U+f21d nonicons
-       map ctrl+shift+enter new_window_with_cwd 
-       map ctrl+shift+f next_tab 
-       map ctrl+shift+b previous_tab 
-       map ctrl+shift+j next_window 
-       map ctrl+shift+p previous_window 
-       map ctrl+shift+0 close_window 
-      # Dark One Nuanced by ariasuni, https://store.kde.org/p/1225908
-      # Imported from KDE .colorscheme format by thematdev, https://thematdev.org
-      # For migrating your schemes from Konsole format see 
-      # https://git.thematdev.org/thematdev/konsole-scheme-migration
+      # NAVIGATION
+      map ctrl+shift+enter new_window_with_cwd 
+      map ctrl+shift+f next_tab 
+      map ctrl+shift+b previous_tab 
+      map ctrl+shift+l next_window 
+      map ctrl+shift+h previous_window 
+      map ctrl+shift+c close_window 
+      map map ctrl+shift+1 goto_tab 1
+      map map ctrl+shift+2 goto_tab 2
+      map map ctrl+shift+3 goto_tab 3
+      map map ctrl+shift+4 goto_tab 4
+      map map ctrl+shift+5 goto_tab 5
+      map map ctrl+shift+6 goto_tab 6
+      map map ctrl+shift+7 goto_tab 7
+      map map ctrl+shift+8 goto_tab 8
+      map map ctrl+shift+9 goto_tab 9
+      #THEME:
 
-      cursor                  #928374
-cursor_text_color       background
 
-url_color               #458588
 
-visual_bell_color       #689d6a
-bell_border_color       #689d6a
 
-active_border_color     #b16286
-inactive_border_color   #1d2021
 
-foreground              #3c3836
-background              #fbf1c7
-selection_foreground    #928374
-selection_background    #3c3836
 
-active_tab_foreground   #282828
-active_tab_background   #928374
-inactive_tab_foreground #7c6f64
-inactive_tab_background #ebdbb2
 
-# white (bg3/bg4)
-color0                  #bdae93
-color8                  #a89984
+# vim:ft=kitty
+
+## name:     Catppuccin Kitty Latte
+## author:   Catppuccin Org
+## license:  MIT
+## upstream: https://github.com/catppuccin/kitty/blob/main/latte.conf
+## blurb:    Soothing pastel theme for the high-spirited!
+
+
+
+# The basic colors
+foreground              #4C4F69
+background              #EFF1F5
+selection_foreground    #EFF1F5
+selection_background    #DC8A78
+
+# Cursor colors
+cursor                  #DC8A78
+cursor_text_color       #EFF1F5
+
+# URL underline color when hovering with mouse
+url_color               #DC8A78
+
+# Kitty window border colors
+active_border_color     #7287FD
+inactive_border_color   #9CA0B0
+bell_border_color       #DF8E1D
+
+# OS Window titlebar colors
+wayland_titlebar_color system
+macos_titlebar_color system
+
+# Tab bar colors
+#active_tab_foreground   #EFF1F5
+#active_tab_background   #edc96d
+#inactive_tab_foreground #4C4F69
+inactive_tab_background #9CA0B0
+tab_bar_background      #BCC0CC
+
+# Colors for marks (marked text in the terminal)
+mark1_foreground #EFF1F5
+mark1_background #7287fD
+mark2_foreground #EFF1F5
+mark2_background #8839EF
+mark3_foreground #EFF1F5
+mark3_background #209FB5
+
+# The 16 terminal colors
+
+# black
+color0 #5C5F77
+color8 #6C6F85
 
 # red
-color1                  #cc241d
-color9                  #9d0006
+color1 #D20F39
+color9 #D20F39
 
 # green
-color2                  #98971a
-color10                 #79740e
+color2  #40A02B
+color10 #40A02B
 
 # yellow
-color3                  #d79921
-color11                 #b57614
+color3  #DF8E1D
+color11 #DF8E1D
 
 # blue
-color4                  #458588
-color12                 #076678
+color4  #1E66F5
+color12 #1E66F5
 
-# purple
-color5                  #b16286
-color13                 #8f3f71
+# magenta
+color5  #EA76CB
+color13 #EA76CB
 
-# aqua
-color6                  #689d6a
-color14                 #427b58
+# cyan
+color6  #179299
+color14 #179299
 
-# black (fg4/fg3)
-color7                  #7c6f64
-color15                 #665c54
+# white
+color7  #ACB0BE
+color15 #BCC0CC
 
-        #      # importing Background
-        #      background #282c34
-        #      # importing BackgroundFaint
-        #      # importing BackgroundIntense
-        #      # importing Color0
-        #      color0 #3f4451
-        #      # importing Color0Faint
-        #      color16 #282c34
-        #      # importing Color0Intense
-        #      color8 #4f5666
-        #      # importing Color1
-        #      color1 #e06c75
-        #      # importing Color1Faint
-        #      color17 #c25d66
-        #      # importing Color1Intense
-        #      color9 #ff7b86
-        #      # importing Color2
-        #      color2 #98c379
-        #      # importing Color2Faint
-        #      color18 #82a566
-        #      # importing Color2Intense
-        #      color10 #b1e18b
-        #      # importing Color3
-        #      color3 #d19a66
-        #      # importing Color3Faint
-        #      color19 #b38257
-        #      # importing Color3Intense
-        #      color11 #efb074
-        #      # importing Color4
-        #      color4 #61afef
-        #      # importing Color4Faint
-        #      color20 #5499d1
-        #      # importing Color4Intense
-        #      color12 #67cdff
-        #      # importing Color5
-        #      color5 #c678dd
-        #      # importing Color5Faint
-        #      color21 #a966bd
-        #      # importing Color5Intense
-        #      color13 #e48bff
-        #      # importing Color6
-        #      color6 #56b6c2
-        #      # importing Color6Faint
-        #      color22 #44919a
-        #      # importing Color6Intense
-        #      color14 #63d4e0
-        #      # importing Color7
-        #      color7 #e6e6e6
-        #      # importing Color7Faint
-        #      color23 #c8c8c8
-        #      # importing Color7Intense
-        #      color15 #ffffff
-        #      # importing Foreground
-        #      foreground #abb2bf
-        #      # importing ForegroundFaint
-        #      # importing ForegroundIntense
-        #      # importing General";
+
+     
+";
+
+
+
+
+
   };
   
 
@@ -402,16 +396,47 @@ color15                 #665c54
       }
     ];
     settings = {
-      theme = "gruvbox_light";
+      theme = "flatwhite";
       editor.soft-wrap = {
           enable = true;
           max-wrap = 25;
         };
+      keys = {
+        insert = {
+          j = {
+            j = "normal_mode";
+          };
+        };
+      };
       editor = {
+        auto-save = true;
+        completion-trigger-len = 1;
         line-number = "relative";
         rulers = [80];
+        whitespace = {
+          render = {
+            space = "all";
+            tab = "all";
+            newline = "all";
+          };
+          characters = {
+            nbsp = "⍽";
+            tab = "→";
+            newline = "⏎";
+            tabpad = "·"; 
+          };
+        };
+        file-picker = {
+          hidden = false;
+        };
+        cursor-shape = {
+          insert = "bar";
+          normal = "underline";
+          select = "underline";
+        };
         lsp = {
           display-inlay-hints = true;
+          snippets = true;
         };
       };
     };
