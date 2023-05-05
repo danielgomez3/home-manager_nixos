@@ -1,0 +1,17 @@
+=============== May 4, 2023 (MDT) ===============
+21:43:42.865692 log@legend F·NumFile S·FileSize N·Entry C·BadEntry B·BadBlock Ke·KeyError D·DroppedEntry L·Level Q·SeqNum T·TimeElapsed
+21:43:42.885067 db@open opening
+21:43:42.889594 version@stat F·[] S·0B[] Sc·[]
+21:43:42.896008 db@janitor F·2 G·0
+21:43:42.896107 db@open done T·10.990661ms
+21:43:44.263921 memdb@flush N·46 S·1KiB
+21:43:44.271565 memdb@flush created L0@3 N·46 S·597B "\ndb..ion,v46":"\nla..ime,v19"
+21:43:44.271588 version@stat F·[1] S·597B[597B] Sc·[0.25]
+21:43:44.277837 memdb@flush committed F·1 T·13.890528ms
+21:43:44.277887 journal@remove removed @1
+21:43:44.277898 table@compaction range L-1 "":""
+21:43:44.277908 table@compaction L0·1 -> L1·0 S·597B Q·46
+21:43:44.284341 table@build created L1@4 N·4 S·207B "\ndb..ion,v46":"\nla..ime,v19"
+21:43:44.284384 version@stat F·[0 1] S·207B[0B 207B] Sc·[0.00 0.00]
+21:43:44.290786 table@compaction committed F~ S-390B Ke·0 D·42 T·12.859207ms
+21:43:44.290920 table@remove removed @3

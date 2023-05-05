@@ -69,8 +69,6 @@ in
     poppler_utils # Used for pdf and png conversion
     unzip
     gnome3.adwaita-icon-theme
-    # Helix editor
-    unstable.helix
     marksman
 
 
@@ -131,7 +129,6 @@ in
     extraConfig = "
       symbol_map U+f101-U+f21d nonicons
        map ctrl+shift+enter new_window_with_cwd 
-       map ctrl+shift+t new_tab_with_cwd 
        map ctrl+shift+f next_tab 
        map ctrl+shift+b previous_tab 
        map ctrl+shift+j next_window 
@@ -387,36 +384,38 @@ color15                 #665c54
 
 
 
-#  # Helix editor:
-#  programs.helix = {
-#  languages = [
-#      {
-#        name = "rust";
-#        auto-format = false;
-#      }
-#      {
-#        name = "markdown";
-#        language-server = {command = "ltex-ls";};
-#        file-types = ["md"];
-#        scope = "source.markdown";
-#        roots = [""];
-#      }
-#    ];
-#    settings = {
-#      theme = "gruvbox_light";
-#      editor.soft-wrap = {
-#          enable = true;
-#          max-wrap = 25;
-#        };
-#      editor = {
-#        line-number = "relative";
-#        rulers = [80];
-##        lsp = {
-##          display-inlay-hints = true;
-##        };
-#      };
-#    };
-#  };
+  # Helix editor:
+  programs.helix = {
+  enable = true;
+  package = unstable.helix;
+  languages = [
+      {
+        name = "rust";
+        auto-format = false;
+      }
+      {
+        name = "markdown";
+        language-server = {command = "ltex-ls";};
+        file-types = ["md"];
+        scope = "source.markdown";
+        roots = [""];
+      }
+    ];
+    settings = {
+      theme = "gruvbox_light";
+      editor.soft-wrap = {
+          enable = true;
+          max-wrap = 25;
+        };
+      editor = {
+        line-number = "relative";
+        rulers = [80];
+        lsp = {
+          display-inlay-hints = true;
+        };
+      };
+    };
+  };
 #
 
 
@@ -430,6 +429,23 @@ color15                 #665c54
 #    neofetch --config /home/daniel/.config/home-manager/extraconfig/neofetch.conf --kitty --image_size none --source /home/daniel/.config/home-manager/images/blossomsmall.png --memory_percent on --memory_unit gib --os_arch off --packages tiny --shell_version off --color_blocks on
 #    ";
 #  };
+
+
+
+  programs.bash = {
+    enable = true;
+    bashrcExtra = "
+      neofetch --config /home/daniel/.config/home-manager/extraconfig/neofetch.conf --kitty --image_size none --source /home/daniel/.config/home-manager/images/blossomsmall.png --memory_percent on --memory_unit gib --os_arch off --packages tiny --shell_version off --color_blocks on
+      ";
+
+};
+
+
+
+
+
+
+
 
 
 
