@@ -128,6 +128,8 @@ in
     # This has to happen because kitty-theme derivation is broken:
     extraConfig = "
     startup_session $HOME/.config/home-manager/extraconfig/kitty-sessions/school.conf
+      # WINDOW PADDING:
+      window_padding_width 2
       # BUG FIX:
       symbol_map U+f101-U+f21d nonicons
       # NAVIGATION
@@ -136,7 +138,7 @@ in
       map ctrl+shift+b previous_tab 
       map ctrl+shift+l next_window 
       map ctrl+shift+h previous_window 
-      map ctrl+shift+c close_window 
+      map ctrl+shift+q close_window 
       map map ctrl+shift+1 goto_tab 1
       map map ctrl+shift+2 goto_tab 2
       map map ctrl+shift+3 goto_tab 3
