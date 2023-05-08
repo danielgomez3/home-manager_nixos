@@ -40,6 +40,11 @@ in
     xournalpp
     llvmPackages_rocm.clangNoCompilerRt
     gtk3 
+    # Kitty terminal dep.
+    libxkbcommon
+    # Rediff command
+    patchutils
+
     # Etc.:
     zathura
     pavucontrol
@@ -70,6 +75,10 @@ in
     unzip
     gnome3.adwaita-icon-theme
     marksman
+    libsForQt5.kdenlive # Video editing
+    obs-studio
+    
+
 
 
 
@@ -127,11 +136,11 @@ in
     };
     # This has to happen because kitty-theme derivation is broken:
     extraConfig = "
-    startup_session $HOME/.config/home-manager/extraconfig/kitty-sessions/school.conf
+    #startup_session $HOME/.config/home-manager/extraconfig/kitty-sessions/school.conf
       # WINDOW PADDING:
       window_padding_width 2
       # BUG FIX:
-      symbol_map U+f101-U+f21d nonicons
+      #symbol_map U+f101-U+f21d nonicons
       # NAVIGATION
       map ctrl+shift+enter new_window_with_cwd 
       map ctrl+shift+f next_tab 
@@ -139,15 +148,6 @@ in
       map ctrl+shift+l next_window 
       map ctrl+shift+h previous_window 
       map ctrl+shift+q close_window 
-      map map ctrl+shift+1 goto_tab 1
-      map map ctrl+shift+2 goto_tab 2
-      map map ctrl+shift+3 goto_tab 3
-      map map ctrl+shift+4 goto_tab 4
-      map map ctrl+shift+5 goto_tab 5
-      map map ctrl+shift+6 goto_tab 6
-      map map ctrl+shift+7 goto_tab 7
-      map map ctrl+shift+8 goto_tab 8
-      map map ctrl+shift+9 goto_tab 9
       #THEME:
 
 
@@ -457,6 +457,7 @@ color15 #BCC0CC
     enable = true;
     shellAliases = {
       pdferlang = " zathura ~/School/erlang/*.pdf ~/School/erlang/cse381/*.pdf  & disown";
+      project = "kitty --session /home/daniel/.config/home-manager/extraconfig/kitty-sessions/school.conf & disown";
       #pdferlang = " zathura ~/School/erlang/*.pdf ~/School/erlang/cse381/*.pdf ~/School/erlang/cse481/*.pdf & disown";
     };
     bashrcExtra = "
