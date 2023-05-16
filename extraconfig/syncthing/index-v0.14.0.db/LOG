@@ -71,3 +71,17 @@
 15:40:38.194601 table@remove removed @8
 15:40:38.194679 table@remove removed @5
 15:40:38.195021 table@remove removed @4
+=============== May 15, 2023 (MDT) ===============
+03:53:57.910514 db@close closing
+03:53:57.910885 db@close done T·365.179µs
+=============== May 15, 2023 (MDT) ===============
+03:54:17.995763 log@legend F·NumFile S·FileSize N·Entry C·BadEntry B·BadBlock Ke·KeyError D·DroppedEntry L·Level Q·SeqNum T·TimeElapsed
+03:54:17.996305 version@stat F·[0 1] S·382B[0B 382B] Sc·[0.00 0.00]
+03:54:17.996328 db@open opening
+03:54:17.996384 journal@recovery F·1
+03:54:17.998932 journal@recovery recovering @15
+03:54:18.005916 memdb@flush created L0@18 N·117 S·1KiB "\x04de..can,v325":"\nla..ime,v215"
+03:54:18.006386 version@stat F·[1 1] S·1KiB[1KiB 382B] Sc·[0.25 0.00]
+03:54:18.031109 db@janitor F·5 G·1
+03:54:18.031124 db@janitor removing table-14
+03:54:18.031154 db@open done T·34.821101ms
