@@ -60,7 +60,6 @@ in
     wally-cli
     spotify
     vlc
-    losslesscut-bin
     ffmpeg
     whatsapp-for-linux
     sshfs
@@ -75,7 +74,7 @@ in
     gnome3.adwaita-icon-theme
     marksman
     libsForQt5.kdenlive # Video editing
-    obs-studio
+    obs-studio-plugins.input-overlay
     zoom-us
     libreoffice
     cmatrix
@@ -142,8 +141,6 @@ in
       #symbol_map U+f101-U+f21d nonicons
       # NAVIGATION
       map ctrl+shift+enter new_window_with_cwd 
-      map ctrl+shift+f next_tab 
-      map ctrl+shift+b previous_tab 
       map ctrl+shift+l next_window 
       map ctrl+shift+h previous_window 
       map ctrl+shift+q close_window 
@@ -552,8 +549,12 @@ programs.zathura = {
 };
 
 
-
-
+  programs.obs-studio = {
+    package = unstable.obs-studio;
+    enable = true;
+    
+  };
+  
 
 
 
