@@ -1,13 +1,13 @@
 {pkgs, lib,... }:
 let
   unstable = import <nixos-unstable> { config = { allowUnfree = true; }; };
-  #tex = (pkgs.texlive.combine {
-  #  inherit (pkgs.texlive) scheme-full
-  #    dvisvgm dvipng # for preview and export as html
-  #    wrapfig amsmath ulem hyperref capt-of;
-  #    #(setq org-latex-compiler "lualatex")
-  #    #(setq org-preview-latex-default-process 'dvisvgm)
-  #});
+  tex = (pkgs.texlive.combine {
+    inherit (pkgs.texlive) scheme-full
+      dvisvgm dvipng # for preview and export as html
+      wrapfig amsmath ulem hyperref capt-of;
+      #(setq org-latex-compiler "lualatex")
+      #(setq org-preview-latex-default-process 'dvisvgm)
+  });
 in
 {
   home.packages = with pkgs;
@@ -82,6 +82,8 @@ in
     killall # killall command
     imgcat
     imagemagick
+    swaylock
+    swayidle
     
   ];
 
@@ -420,7 +422,7 @@ in
   package = unstable.helix;
   #  ];
     settings = {
-      theme = "flatwhite";
+      theme = "base16_transparent";
       editor.soft-wrap = {
           enable = true;
           max-wrap = 25;
@@ -629,11 +631,50 @@ return {
 	-- General
 	automatically_reload_config = true,
 	inactive_pane_hsb = { saturation = 1.0, brightness = 1.0 },
-	window_background_opacity = 0.4,
+	window_background_opacity = 0.7,
 	window_close_confirmation = "NeverPrompt",
 }
     '';
   };
+
+  services.swayidle = {
+    enable = true;
+    events = [
+      {
+        event = "before-sleep";
+        command = "${pkgs.swaylock-effects}/bin/swaylock -fF";
+      }
+      {
+        event = "lock";
+        command = "${pkgs.swaylock-effects}/bin/swaylock -fF";
+      }
+    ];
+
+    timeouts = [
+      {
+        timeout = 300;
+        command = "${pkgs.sway}/bin/swaymsg \"output * dpms off\"";
+        resumeCommand = "${pkgs.sway}/bin/swaymsg \"output * dpms on\"";
+      }
+      {
+        timeout = 310;
+        command = "${pkgs.systemd}/bin/loginctl lock-session";
+      }
+    ];
+  };
+
+
+  programs.swaylock = {
+    enable = true;
+    settings = {
+        color = "808080";
+        font-size = 24;
+        indicator-idle-visible = false;
+        indicator-radius = 100;
+        line-color = "ffffff";
+        show-failed-attempts = true;
+    };
+  }; 
 
 
 
