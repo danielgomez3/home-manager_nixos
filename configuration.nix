@@ -12,6 +12,10 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
+  # FOR OBS-STUDIO:
+  boot.kernelModules = [ "kvm-intel" "hid-nintendo" "v4l2loopback" ];
+  boot.extraModulePackages = with config.boot.kernelPackages; [ v4l2loopback ];
+
   # networking.hostName = "nixos"; # Define your hostname.
   # Pick only one of the below networking options.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -68,8 +72,7 @@
     wget curl iwd dhcpcd neovim
     git cachix 
     st chromium rofi dmenu source-code-pro neofetch
-    sshfs fuse
-
+    sshfs fuse 
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -89,9 +92,7 @@
     passwordAuthentication = false;
     kbdInteractiveAuthentication = false;
   };
-  users.users.daniel.openssh.authorizedKeys.keys = [
-"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   " 
-];
+  #users.users.daniel.openssh.authorizedKeys.keys = [];
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
@@ -138,29 +139,15 @@
 
 
   
-  # Dwm:
-  services.xserver.displayManager.lightdm.enable = false;
-  services.xserver.displayManager.startx.enable = true;
-  services.xserver.windowManager.dwm.enable = true;
-  hardware.opengl.enable = true;
-  services.xserver.enable = true;
-  nixpkgs.overlays = [ (self: super: {
-    dwm = super.dwm.overrideAttrs (old: {
-      pname = "dwm";
-      version = "6.2";
-      src = super.fetchurl {
-        url = "https://dl.suckless.org/dwm/dwm-6.2.tar.gz";
-        sha256 = "l5AuLgB6rqo8bjvtH4F4W4F7dBOUfx2x07YrjaTNEQ4=";
-      };
-      patches = [
-        (super.fetchpatch {
-          url = "https://raw.githubusercontent.com/danielgomez3/dwmpatch/main/danielgomez3_dwm.diff";
-          sha256 = "1a5bxl3ww0iyfskv8v67lsjwm9r778d20lijwmvf25iqdnbh005i";
-        })
-      ];
-    });
-}) ];
-
+#  # Dwm:
+#  services.xserver.displayManager.lightdm.enable = false;
+#  services.xserver.displayManager.startx.enable = true;
+#  services.xserver.windowManager.dwm.enable = true;
+#  hardware.opengl.enable = true;
+#  services.xserver.enable = true;
+#
+#
+#  # Dwm:
 #  nixpkgs.overlays = [ (self: super: {
 #    dwm = super.dwm.overrideAttrs (old: {
 #      pname = "dwm";
@@ -169,8 +156,48 @@
 #        url = "https://dl.suckless.org/dwm/dwm-6.2.tar.gz";
 #        sha256 = "l5AuLgB6rqo8bjvtH4F4W4F7dBOUfx2x07YrjaTNEQ4=";
 #      };
+#      patches = [
+#        (super.fetchpatch {
+#          url = "https://raw.githubusercontent.com/danielgomez3/dwmpatch/main/new.diff";
+#          sha256 = "0bzr1mz9kdhkvh85qi9f5g4bw6amv77qzgffl090829jlcb3vimy";
+#        })
+#      ];
 #    });
-#    })];
+#}) ];
+#
+
+  # I3WM:
+  environment.pathsToLink = [ "/libexec" ]; # links /libexec from derivations to /run/current-system/sw 
+  services.xserver = {
+    enable = true;
+
+    desktopManager = {
+      xterm.enable = false;
+    };
+   
+    displayManager = {
+        defaultSession = "none+i3";
+    };
+
+    windowManager.i3 = {
+      package = pkgs.i3-gaps;
+      enable = true;
+      configFile = /home/daniel/.config/home-manager/extraconfig/i3/i3config;
+      extraPackages = with pkgs; [
+        dmenu #application launcher most people use
+        i3status # gives you the default i3 status bar
+        i3lock #default i3 screen locker
+        i3blocks #if you are planning on using i3blocks over i3status
+     ];
+    };
+  };
+
+
+
+
+
+
+
 
 
 
@@ -201,14 +228,14 @@
 
 
 
-#  services = {
-#    syncthing = {
-#        enable = true;
-#        user = "daniel";
-#        dataDir = "/home/daniel/School/";    # Default folder for new synced folders
-#        configDir = "/home/daniel/.config/syncthing";   # Folder for Syncthing's settings and keys
-#    };
-#};
+  services = {
+    syncthing = {
+        enable = true;
+        user = "daniel";
+        dataDir = "/home/daniel/School/";    # Default folder for new synced folders
+        configDir = "/home/daniel/.config/home-manager/extraconfig/syncthing";   # Folder for Syncthing's settings and keys
+    };
+};
 
 
 
@@ -220,29 +247,62 @@ fonts.fonts = with pkgs; [
 
 
 
-systemd.mounts = [
-  {
-  what = "jodango@45.63.36.141:/home/jodango/School/";
-  where = "/home/daniel/School";
-  type = "fuse.sshfs";
-  options = "identityfile=/home/daniel/.ssh/desktop_key,allow_other,user,reconnect,ServerAliveInterval=5,delay_connect,ConnectTimeout=5";
-  wantedBy = [ "multi-user.target" ];
-  }
-];
+#systemd.mounts = [
+#  {
+#  what = "jodango@45.63.36.141:/home/jodango/School/";
+#  where = "/home/daniel/School";
+#  type = "fuse.sshfs";
+#  options = "identityfile=/home/daniel/.ssh/desktop_key,allow_other,user,reconnect,ServerAliveInterval=5,delay_connect,ConnectTimeout=5";
+#  wantedBy = [ "multi-user.target" ];
+#  }
+#];
 
 
-  users.defaultUserShell = pkgs.bash;
-  programs.bash = {
-    enableCompletion = true;
-    shellAliases = {
-      ll = "ls -l";
-      update = "sudo nixos-rebuild switch";
-      vi = "nvim";
-    };
-    shellInit = "
-      neofetch --config /home/daniel/.config/home-manager/extraconfig/neofetch.conf --kitty --image_size none --source /home/daniel/.config/home-manager/images/blossomsmall.png --memory_percent on --memory_unit gib --os_arch off --packages tiny --shell_version off --color_blocks on
-    ";
-  }; 
+#users.defaultUserShell = pkgs.zsh;
+#programs.zsh = {
+#  enable = true;
+#  shellAliases = {
+#    vi = "nvim";
+#    hx = "hx --config /home/daniel/.config/home-manager/extraconfig/helix/config.toml";
+#    ll = "ls -l";
+#    update = "sudo nixos-rebuild switch";
+#    };
+#  };
+users.defaultUserShell = pkgs.bash;
+programs.bash = {
+  enableCompletion = true;
+  shellAliases = {
+    ll = "ls -l";
+    update = "sudo nixos-rebuild switch";
+    vi = "nvim";
+    #hx = "hx --config /home/daniel/.config/home-manager/extraconfig/helix/config.toml";
+  };
+  promptInit =  ''
+    # PS1="\n\[\033[01;32m\]\u@\h $\[\033[00m\]\[\033[01;36m\] \w λ\[\033[00m\]\n"
+    PS1="\n\[\033[01;32m\]\u@\h λ\[\033[00m\]\[\033[01;36m\] \w \[\033[00m\]\n"
+    echo -e -n "\x1b[\x33 q" # changes to blinking underline
+    stty -ixon # Turn off ctrl-s to pause terminal
+
+    '';
+}; 
+
+
+  # Steam:
+  programs.steam = {
+  enable = true;
+  remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
+  dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
+};
+ nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
+    "steam"
+    "steam-original"
+    "steam-runtime"
+    "steam-run"
+  ];
+
+
+
+
 
 
 

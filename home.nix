@@ -127,7 +127,7 @@ in
   # Kitty Terminal:
   programs.kitty = {
     enable = true;
-    font.size = 10.0;
+    font.size = 10;
     font.name = "SauceCodePro Nerd Font";
     #font.name = "Fira Code Nerd Font";
     settings = {
@@ -346,7 +346,6 @@ color15 #BCC0CC
 
    programs.neovim = {
     enable = true;
-    defaultEditor = true;
     extraConfig = lib.fileContents "/home/daniel/.config/home-manager/extraconfig/nvim/vimrc.vim";
     plugins = [
       pkgs.vimPlugins.nvim-tree-lua
