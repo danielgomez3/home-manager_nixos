@@ -150,7 +150,7 @@
   // Modules right
   "modules-right": [
     "tray",
-    // "cpu",
+    "cpu",
     // "memory",
     "backlight",
     // "pulseaudio",
@@ -160,7 +160,7 @@
     // "network",
     "network#wlo1",
     "network#eno1",
-    // "battery",
+    "battery",
     "clock",
     "custom/powermenu"
   ],

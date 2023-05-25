@@ -84,6 +84,7 @@ in
     imagemagick
     swaylock
     swayidle
+    grim
     
   ];
 
@@ -498,7 +499,7 @@ in
       #pdferlang = " zathura ~/School/erlang/*.pdf ~/School/erlang/cse381/*.pdf ~/School/erlang/cse481/*.pdf & disown";
     };
     bashrcExtra = ''
-      neofetch --config /home/daniel/.config/home-manager/extraconfig/neofetch.conf --kitty --image_size none --source /home/daniel/.config/home-manager/images/commonlisp.png --memory_percent on --memory_unit gib --os_arch off --packages tiny --shell_version off --color_blocks on 
+      neofetch --config /home/daniel/.config/home-manager/extraconfig/neofetch.conf --kitty --image_size none --source /home/daniel/.config/home-manager/images/csmaller.png --memory_percent on --memory_unit gib --os_arch off --packages tiny --shell_version off --color_blocks on 
       #function pdf() { zathura  "$@" & disown; }
       function Pdf() { zathura  ./*.pdf & disown; }
 
@@ -645,15 +646,9 @@ return {
   services.swayidle = {
     enable = true;
     events = [
-      {
-        event = "before-sleep";
-        command = "${pkgs.swaylock-effects}/bin/swaylock -fF";
-      }
-      {
-        event = "lock";
-        command = "${pkgs.swaylock-effects}/bin/swaylock -fF";
-      }
-    ];
+  { event = "before-sleep"; command = "${pkgs.swaylock}/bin/swaylock"; }
+  { event = "lock"; command = "lock"; }
+          ];
 
     timeouts = [
       {
