@@ -420,8 +420,13 @@ in
   programs.helix = {
   enable = true;
   package = unstable.helix;
-  #  ];
-    settings = {
+    languages = [{
+    name = "markdown";
+    file-types = ["md"];
+    scope = "source.markdown";
+    roots = [];
+    }];
+  settings = {
       theme = "base16_transparent";
       editor.soft-wrap = {
           enable = true;
