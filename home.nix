@@ -1,13 +1,13 @@
 {pkgs, lib,... }:
 let
   unstable = import <nixos-unstable> { config = { allowUnfree = true; }; };
-  tex = (pkgs.texlive.combine {
-    inherit (pkgs.texlive) scheme-full
-      dvisvgm dvipng # for preview and export as html
-      wrapfig amsmath ulem hyperref capt-of;
-      #(setq org-latex-compiler "lualatex")
-      #(setq org-preview-latex-default-process 'dvisvgm)
-  });
+  #tex = (pkgs.texlive.combine {
+  #  inherit (pkgs.texlive) scheme-full
+  #    dvisvgm dvipng # for preview and export as html
+  #    wrapfig amsmath ulem hyperref capt-of;
+  #    #(setq org-latex-compiler "lualatex")
+  #    #(setq org-preview-latex-default-process 'dvisvgm)
+  #});
 in
 {
   home.packages = with pkgs;
@@ -18,8 +18,8 @@ in
     # Qutebrowser deps:
     #python39Packages.adblock
     # Coding:
-    tex
-    python
+    #tex
+    python3
     R-with-my-packages
     # Neovim/Text editor deps.
     erlang-ls
@@ -32,14 +32,13 @@ in
     fd
     fzf
     # Dwm/i3wm deps.
-    xmenu
-    gnumake
-    qutebrowser
-    polybar
-    autotiling
+    #xmenu
+    #gnumake
+    #qutebrowser
+    #polybar
+    #autotiling
     # Xournalpp
     xournalpp
-    llvmPackages_rocm.clangNoCompilerRt
     gtk3 
     # Kitty terminal dep.
     libxkbcommon
@@ -81,6 +80,8 @@ in
     cmatrix
     onefetch
     killall # killall command
+    imgcat
+    imagemagick
     
   ];
 
@@ -128,14 +129,19 @@ in
   programs.kitty = {
     enable = true;
     font.size = 10;
-    font.name = "SauceCodePro Nerd Font";
-    #font.name = "Fira Code Nerd Font";
+    #font.name = "SauceCodePro Nerd Font";
+    font.name = "Fira Code";
     settings = {
       enable_audio_bell = false;
       confirm_os_window_close = 0;
     };
     # This has to happen because kitty-theme derivation is broken:
     extraConfig = "
+    background_opacity 0.8
+    #foreground              #C6D0F5
+    #background              #303446
+    #selection_foreground    #303446
+    #selection_background    #F2D5CF
     #startup_session $HOME/.config/home-manager/extraconfig/kitty-sessions/school.conf
       # WINDOW PADDING:
       window_padding_width 2
@@ -160,101 +166,101 @@ in
 
 
 
-# The basic colors
-foreground              #4C4F69
-background              #EFF1F5
-selection_foreground    #EFF1F5
-selection_background    #DC8A78
-
-# Cursor colors
-cursor                  #DC8A78
-cursor_text_color       #EFF1F5
-
-# URL underline color when hovering with mouse
-url_color               #DC8A78
-
-# Kitty window border colors
-active_border_color     #7287FD
-inactive_border_color   #9CA0B0
-bell_border_color       #DF8E1D
-
-# OS Window titlebar colors
-wayland_titlebar_color system
-macos_titlebar_color system
-
-# Tab bar colors
-active_tab_foreground   #EFF1F5
-active_tab_background   #353240
-inactive_tab_foreground #4C4F69
-inactive_tab_background #9CA0B0
-tab_bar_background      #BCC0CC
-
-# Colors for marks (marked text in the terminal)
-mark1_foreground #EFF1F5
-mark1_background #7287fD
-mark2_foreground #EFF1F5
-mark2_background #8839EF
-mark3_foreground #EFF1F5
-mark3_background #209FB5
-
-# The 16 terminal colors
-
-# black
-color0 #5C5F77
-color8 #6C6F85
-
-# red
-color1 #D20F39
-color9 #D20F39
-
-# green
-color2  #40A02B
-color10 #40A02B
-
-# yellow
-color3  #DF8E1D
-color11 #DF8E1D
-
-# blue
-color4  #1E66F5
-color12 #1E66F5
-
-# magenta
-color5  #EA76CB
-color13 #EA76CB
-
-# cyan
-color6  #179299
-color14 #179299
-
-# white
-color7  #ACB0BE
-color15 #BCC0CC
-
-
-
-
-#foreground #979eab
-#background #282c34
-#cursor #cccccc
-#color0 #282c34
-#color1 #e06c75
-#color2 #98c379
-#color3 #e5c07b
-#color4 #61afef
-#color5 #be5046
-#color6 #56b6c2
-#color7 #979eab
-#color8 #393e48
-#color9 #d19a66
-#color10 #56b6c2
-#color11 #e5c07b
-#color12 #61afef
-#color13 #be5046
-#color14 #56b6c2
-#color15 #abb2bf
-#selection_foreground #282c34
-#selection_background #979eab
+#   # The basic colors
+#   foreground              #4C4F69
+#   background              #EFF1F5
+#   selection_foreground    #EFF1F5
+#   selection_background    #DC8A78
+#   
+#   # Cursor colors
+#   cursor                  #DC8A78
+#   cursor_text_color       #EFF1F5
+#   
+#   # URL underline color when hovering with mouse
+#   url_color               #DC8A78
+#   
+#   # Kitty window border colors
+#   active_border_color     #7287FD
+#   inactive_border_color   #9CA0B0
+#   bell_border_color       #DF8E1D
+#   
+#   # OS Window titlebar colors
+#   wayland_titlebar_color system
+#   macos_titlebar_color system
+#   
+#   # Tab bar colors
+#   active_tab_foreground   #EFF1F5
+#   active_tab_background   #353240
+#   inactive_tab_foreground #4C4F69
+#   inactive_tab_background #9CA0B0
+#   tab_bar_background      #BCC0CC
+#   
+#   # Colors for marks (marked text in the terminal)
+#   mark1_foreground #EFF1F5
+#   mark1_background #7287fD
+#   mark2_foreground #EFF1F5
+#   mark2_background #8839EF
+#   mark3_foreground #EFF1F5
+#   mark3_background #209FB5
+#   
+#   # The 16 terminal colors
+#   
+#   # black
+#   color0 #5C5F77
+#   color8 #6C6F85
+#   
+#   # red
+#   color1 #D20F39
+#   color9 #D20F39
+#   
+#   # green
+#   color2  #40A02B
+#   color10 #40A02B
+#   
+#   # yellow
+#   color3  #DF8E1D
+#   color11 #DF8E1D
+#   
+#   # blue
+#   color4  #1E66F5
+#   color12 #1E66F5
+#   
+#   # magenta
+#   color5  #EA76CB
+#   color13 #EA76CB
+#   
+#   # cyan
+#   color6  #179299
+#   color14 #179299
+#   
+#   # white
+#   color7  #ACB0BE
+#   color15 #BCC0CC
+#   
+#   
+#   
+#   
+#   #foreground #979eab
+#   #background #282c34
+#   #cursor #cccccc
+#   #color0 #282c34
+#   #color1 #e06c75
+#   #color2 #98c379
+#   #color3 #e5c07b
+#   #color4 #61afef
+#   #color5 #be5046
+#   #color6 #56b6c2
+#   #color7 #979eab
+#   #color8 #393e48
+#   #color9 #d19a66
+#   #color10 #56b6c2
+#   #color11 #e5c07b
+#   #color12 #61afef
+#   #color13 #be5046
+#   #color14 #56b6c2
+#   #color15 #abb2bf
+#   #selection_foreground #282c34
+#   #selection_background #979eab
 
 
 
@@ -412,19 +418,7 @@ color15 #BCC0CC
   programs.helix = {
   enable = true;
   package = unstable.helix;
-  languages = [
-      {
-        name = "rust";
-        auto-format = false;
-      }
-      {
-        name = "markdown";
-        language-server = {command = "ltex-ls";};
-        file-types = ["md"];
-        scope = "source.markdown";
-        roots = [""];
-      }
-    ];
+  #  ];
     settings = {
       theme = "flatwhite";
       editor.soft-wrap = {
@@ -492,10 +486,12 @@ color15 #BCC0CC
     shellAliases = {
       Pdferlang = " zathura ~/School/erlang/*.pdf ~/School/erlang/cse381/*.pdf ~/School/erlang/cse481/*.pdf ~/School/erlang/cse481/grading/*.pdf ~/School/erlang/cse381/grading/*.pdf & disown";
       Projects = "kitty --session /home/daniel/.config/home-manager/extraconfig/kitty-sessions/school.conf & disown";
+      Hyprland = "Hyprland -c /home/daniel/.config/home-manager/extraconfig/hyprland/hyprland.conf";
+      hyprpaper = "hyprpaper -c /home/daniel/home-manager/extraconfig/hyprpaper/hyprpaper.conf";
       #pdferlang = " zathura ~/School/erlang/*.pdf ~/School/erlang/cse381/*.pdf ~/School/erlang/cse481/*.pdf & disown";
     };
     bashrcExtra = ''
-      neofetch --config /home/daniel/.config/home-manager/extraconfig/neofetch.conf --kitty --image_size none --source /home/daniel/.config/home-manager/images/blossomsmall.png --memory_percent on --memory_unit gib --os_arch off --packages tiny --shell_version off --color_blocks on
+      neofetch --config /home/daniel/.config/home-manager/extraconfig/neofetch.conf --kitty --image_size none --source /home/daniel/.config/home-manager/images/commonlisp.png --memory_percent on --memory_unit gib --os_arch off --packages tiny --shell_version off --color_blocks on 
       #function pdf() { zathura  "$@" & disown; }
       function Pdf() { zathura  ./*.pdf & disown; }
 
@@ -556,9 +552,88 @@ programs.zathura = {
     
   };
   
+
+  programs.waybar.settings = {
+    enable = true;
+    mainBar = {
+      layer = "top";
+      position = "top";
+      height = 30;
+      output = [
+        "eDP-1"
+        "HDMI-A-1"
+      ];
+      modules-left = [ "sway/workspaces" "sway/mode" "wlr/taskbar" ];
+      modules-center = [ "sway/window" "custom/hello-from-waybar" ];
+      modules-right = [ "mpd" "custom/mymodule#with-css-id" "temperature" ];
+
+      "sway/workspaces" = {
+        disable-scroll = true;
+        all-outputs = true;
+      };
+      "custom/hello-from-waybar" = {
+        format = "hello {}";
+        max-length = 40;
+        interval = "once";
+        exec = pkgs.writeShellScript "hello-from-waybar" ''
+          echo "from within waybar"
+        '';
+      };
+    };
+  };
+
+
+  programs.waybar.systemd = {
+    enable = true;
+  };
+
   
+  programs.wezterm = {
+    enable = true;
+    extraConfig = ''
+    local wezterm = require("wezterm")
 
 
+
+return {
+  -- Font
+  font_size = 10.0,
+
+	-- OpenGL for GPU acceleration, Software for CPU
+	front_end = "OpenGL",
+
+	color_scheme = 'Catppuccin Mocha',
+
+	-- Cursor style
+	default_cursor_style = "BlinkingUnderline",
+
+	-- X11
+	enable_wayland = true,
+
+	-- Aesthetic Night Colorscheme
+	bold_brightens_ansi_colors = true,
+	-- Padding
+	window_padding = {
+		left = 15,
+		right = 15,
+		top = 10,
+		bottom = 10,
+	},
+
+	-- Tab Bar
+	enable_tab_bar = true,
+	hide_tab_bar_if_only_one_tab = true,
+	show_tab_index_in_tab_bar = false,
+	tab_bar_at_bottom = true,
+
+	-- General
+	automatically_reload_config = true,
+	inactive_pane_hsb = { saturation = 1.0, brightness = 1.0 },
+	window_background_opacity = 0.4,
+	window_close_confirmation = "NeverPrompt",
+}
+    '';
+  };
 
 
 

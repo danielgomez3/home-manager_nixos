@@ -2,8 +2,12 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config,pkgs,lib, ... }: {
+{ config,pkgs,lib, ... }: 
+let
+  unstable = import <nixos-unstable> { config = { allowUnfree = true; }; };
+in {
   imports =
+
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
     ];
@@ -73,6 +77,9 @@
     git cachix 
     st chromium rofi dmenu source-code-pro neofetch
     sshfs fuse 
+    kitty gtk3 alacritty
+    unstable.hyprland unstable.wofi unstable.hyprpaper wl-clipboard wlr-randr wlr-protocols wlroots wlrctl 
+    eww-wayland
   ];
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -89,8 +96,8 @@
   services.openssh = {
     enable = true;
     # require public key authentication for better security
-    passwordAuthentication = false;
-    kbdInteractiveAuthentication = false;
+    #passwordAuthentication = false;
+    #kbdInteractiveAuthentication = false;
   };
   #users.users.daniel.openssh.authorizedKeys.keys = [];
 
@@ -167,30 +174,30 @@
 #
 
   # I3WM:
-  environment.pathsToLink = [ "/libexec" ]; # links /libexec from derivations to /run/current-system/sw 
-  services.xserver = {
-    enable = true;
+  #environment.pathsToLink = [ "/libexec" ]; # links /libexec from derivations to /run/current-system/sw 
+  #services.xserver = {
+  #  enable = true;
 
-    desktopManager = {
-      xterm.enable = false;
-    };
-   
-    displayManager = {
-        defaultSession = "none+i3";
-    };
+  #  desktopManager = {
+  #    xterm.enable = false;
+  #  };
+  # 
+  #  displayManager = {
+  #      defaultSession = "none+i3";
+  #  };
 
-    windowManager.i3 = {
-      package = pkgs.i3-gaps;
-      enable = true;
-      configFile = /home/daniel/.config/home-manager/extraconfig/i3/i3config;
-      extraPackages = with pkgs; [
-        dmenu #application launcher most people use
-        i3status # gives you the default i3 status bar
-        i3lock #default i3 screen locker
-        i3blocks #if you are planning on using i3blocks over i3status
-     ];
-    };
-  };
+  #  windowManager.i3 = {
+  #    package = pkgs.i3-gaps;
+  #    enable = true;
+  #    configFile = /home/daniel/.config/home-manager/extraconfig/i3/i3config;
+  #    extraPackages = with pkgs; [
+  #      dmenu #application launcher most people use
+  #      i3status # gives you the default i3 status bar
+  #      i3lock #default i3 screen locker
+  #      i3blocks #if you are planning on using i3blocks over i3status
+  #   ];
+  #  };
+  #};
 
 
 
@@ -301,9 +308,23 @@ programs.bash = {
   ];
 
 
+  programs.hyprland = {
+    enable = true;
+    xwayland.enable = true;
+  };
 
+  programs.waybar = {
+    enable = true;
+  };
 
-
+  # Waybar Overlay
+  nixpkgs.overlays = [
+    (self: super: {
+      waybar = super.waybar.overrideAttrs (oldAttrs: {
+        mesonFlags = oldAttrs.mesonFlags ++ [ "-Dexperimental=true" ];
+      });
+    })
+  ];
 
 
 }
