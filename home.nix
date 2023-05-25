@@ -31,11 +31,12 @@ in
     ripgrep
     fd
     fzf
-    # Dwm deps.
+    # Dwm/i3wm deps.
     xmenu
     gnumake
     qutebrowser
     polybar
+    autotiling
     # Xournalpp
     xournalpp
     llvmPackages_rocm.clangNoCompilerRt
@@ -79,6 +80,7 @@ in
     libreoffice
     cmatrix
     onefetch
+    killall # killall command
     
   ];
 
@@ -555,7 +557,7 @@ programs.zathura = {
     
   };
   
-
+  
 
 
 
