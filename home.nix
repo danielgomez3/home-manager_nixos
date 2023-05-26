@@ -538,7 +538,7 @@ in
       Projects = "kitty --session /home/daniel/.config/home-manager/extraconfig/kitty-sessions/school.conf & disown";
       Hyprland = "Hyprland -c /home/daniel/.config/home-manager/extraconfig/hyprland/hyprland.conf";
       hyprpaper = "hyprpaper -c /home/daniel/home-manager/extraconfig/hyprpaper/hyprpaper.conf";
-      nnn = "nnn -P p";
+      n = "nnn -P p";
       #ranger = "ranger -r ~/.config/home-manager/extraconfig/ranger/";
       #pdferlang = " zathura ~/School/erlang/*.pdf ~/School/erlang/cse381/*.pdf ~/School/erlang/cse481/*.pdf & disown";
     };
