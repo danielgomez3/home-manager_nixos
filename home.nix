@@ -109,6 +109,10 @@ in
     glow
     # Mime type stuff:
     xdg-utils
+    # Terminal Emulator:
+    unstable.wezterm
+    xorg.xcursorgen
+    xorg.xcursorthemes
     
   ];
 
@@ -557,10 +561,9 @@ in
       #pdferlang = " zathura ~/School/erlang/*.pdf ~/School/erlang/cse381/*.pdf ~/School/erlang/cse481/*.pdf & disown";
     };
     bashrcExtra = ''
-
-  if [ -f /home/daniel/.config/home-manager/.thing ]; then
-    . /home/daniel/.config/home-manager/.thing
-  fi
+      if [ -f /home/daniel/.config/home-manager/.thing ]; then
+        . /home/daniel/.config/home-manager/.thing
+      fi
 
 
 
@@ -680,49 +683,59 @@ programs.zathura = {
   
   programs.wezterm = {
     enable = true;
+    package = unstable.wezterm;
     extraConfig = ''
-    local wezterm = require("wezterm")
+      local wezterm = require("wezterm")
+      local act = wezterm.action
+      local config = {}
 
 
 
-return {
-  -- Font
-  font_size = 10.0,
 
-	-- OpenGL for GPU acceleration, Software for CPU
-	front_end = "OpenGL",
+      return {
 
-	color_scheme = 'Catppuccin Mocha',
 
-	-- Cursor style
-	default_cursor_style = "BlinkingUnderline",
 
-	-- X11
-	enable_wayland = true,
 
-	-- Aesthetic Night Colorscheme
-	bold_brightens_ansi_colors = true,
-	-- Padding
-	window_padding = {
-		left = 15,
-		right = 15,
-		top = 10,
-		bottom = 10,
-	},
 
-	-- Tab Bar
-	enable_tab_bar = true,
-	hide_tab_bar_if_only_one_tab = true,
-	show_tab_index_in_tab_bar = false,
-	tab_bar_at_bottom = true,
+      
+        -- Font
+        font_size = 10.0,
 
-	-- General
-	automatically_reload_config = true,
-	inactive_pane_hsb = { saturation = 1.0, brightness = 1.0 },
-	window_background_opacity = 0.7,
-	window_close_confirmation = "NeverPrompt",
-}
-    '';
+      	-- OpenGL for GPU acceleration, Software for CPU
+      	front_end = "OpenGL",
+
+      	color_scheme = 'Catppuccin Mocha',
+
+      	-- Cursor style
+      	default_cursor_style = "BlinkingUnderline",
+
+      	-- X11
+      	enable_wayland = true,
+
+      	-- Aesthetic Night Colorscheme
+      	bold_brightens_ansi_colors = true,
+      	-- Padding
+      	window_padding = {
+      		left = 15,
+      		right = 15,
+      		top = 10,
+      		bottom = 10,
+      	},
+
+      	-- Tab Bar
+      	enable_tab_bar = true,
+      	hide_tab_bar_if_only_one_tab = true,
+      	show_tab_index_in_tab_bar = false,
+      	tab_bar_at_bottom = true,
+
+      	-- General
+      	automatically_reload_config = true,
+      	inactive_pane_hsb = { saturation = 1.0, brightness = 1.0 },
+      	window_background_opacity = 0.7,
+      	window_close_confirmation = "NeverPrompt",
+      }
+          '';
   };
 
   services.swayidle = {
