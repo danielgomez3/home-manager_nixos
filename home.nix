@@ -104,6 +104,11 @@ in
     # For nnn:
     nnn
     poppler_utils 
+    bat
+    ffmpegthumbnailer
+    glow
+    # Mime type stuff:
+    xdg-utils
     
   ];
 
@@ -135,7 +140,16 @@ in
   # One, declaring another. This will break. Looks great rn tho.
 
   
-
+  # Change Default apps:
+  xdg.mimeApps = {
+    enable = true;
+    associations.added = {
+      "application/pdf" = ["zathura.desktop"];
+    };
+    defaultApplications = {
+      "application/pdf" = ["org.pwmt.zathura.desktop"];
+    };
+  };
   
       
         
@@ -764,8 +778,9 @@ return {
 
 
 
-
-
+  home.sessionVariables = {
+    READER = "zathura";
+  };
 
 
 
