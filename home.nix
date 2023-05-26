@@ -13,12 +13,27 @@ in
   home.packages = with pkgs;
     let
       R-with-my-packages = rWrapper.override{ packages = with rPackages; [ ggplot2 dplyr xts tidyverse ggthemes]; };
+      ranger = pkgs.ranger.overrideAttrs (r: {
+  preConfigure = r.preConfigure + ''
+    # Specify path to Überzug
+    substituteInPlace ranger/ext/img_display.py \
+      --replace "Popen(['ueberzug'" \
+                "Popen(['${pkgs.ueberzug}/bin/ueberzug'"
+
+    # Use Überzug as the default method
+    substituteInPlace ranger/config/rc.conf \
+      --replace 'set preview_images_method w3m' \
+                'set preview_images_method ueberzug'
+  '';
+});
+
+
     in
   [
     # Qutebrowser deps:
     #python39Packages.adblock
     # Coding:
-    #tex
+    tex
     python3
     R-with-my-packages
     # Neovim/Text editor deps.
@@ -69,7 +84,6 @@ in
     pandoc
     tmux
     xfce.ristretto
-    poppler_utils # Used for pdf and png conversion
     unzip
     gnome3.adwaita-icon-theme
     marksman
@@ -80,11 +94,16 @@ in
     cmatrix
     onefetch
     killall # killall command
-    imgcat
     imagemagick
     swaylock
     swayidle
     grim
+    w3m
+    imgcat
+    # File traversal/Project management
+    # For nnn:
+    nnn
+    poppler_utils 
     
   ];
 
@@ -321,7 +340,19 @@ in
 
   
   # Overlays
-  nixpkgs.overlays = [ (self: super: {
+  nixpkgs.overlays = [ 
+  (self: super: {
+
+    lf = super.lf.overrideAttrs (old: {
+          src = pkgs.fetchFromGitHub {
+            repo = "lf";
+            owner = "horriblename";
+            rev = "HEAD";
+            sha256 = "sha256-cQf+OP1u6lf/7QgT/Rg9613Igx4YjqEUchmjsk31Z8c=";
+            };
+      });
+
+  
     picom = super.picom.overrideAttrs (old: {
           src = pkgs.fetchFromGitHub {
             repo = "picom";
@@ -330,7 +361,11 @@ in
             sha256 = "4voCAYd0fzJHQjJo4x3RoWz5l3JJbRvgIXn1Kg6nz6Y=";
             };
       });
-  }) ];
+  }) 
+  
+  
+  
+  ];
 
 
   services.picom = {
@@ -417,63 +452,70 @@ in
 
 
 
+
   # Helix editor:
   programs.helix = {
-  enable = true;
-  package = unstable.helix;
-    languages = [{
-    name = "markdown";
-    file-types = ["md"];
-    scope = "source.markdown";
-    roots = [];
-    }];
-  settings = {
-      theme = "base16_transparent";
-      editor.soft-wrap = {
-          enable = true;
-          max-wrap = 25;
+    enable = true;
+    package = unstable.helix;
+    languages = {
+      language = [{
+        name = "markdown";
+        file-types = ["md"];
+        scope = "source.markdown";
+        roots = [];
+        language-server = with pkgs; { 
+          command = "ltex-ls"; 
         };
-      keys = {
-        insert = {
-          j = {
-            j = "normal_mode";
-          };
-        };
-      };
-      editor = {
-        auto-save = true;
-        completion-trigger-len = 1;
-        line-number = "relative";
-        rulers = [80];
-        whitespace = {
-          render = {
-            space = "all";
-            tab = "all";
-            newline = "all";
-          };
-          characters = {
-            nbsp = "⍽";
-            tab = "→";
-            newline = "⏎";
-            tabpad = "·"; 
-          };
-        };
-        file-picker = {
-          hidden = false;
-        };
-        cursor-shape = {
-          insert = "bar";
-          normal = "underline";
-          select = "underline";
-        };
-        lsp = {
-          display-inlay-hints = true;
-          snippets = true;
-        };
-      };
+      }];
     };
+    
+    settings = {
+        theme = "base16_transparent";
+        editor.soft-wrap = {
+            enable = true;
+            max-wrap = 25;
+          };
+        keys = {
+          insert = {
+            j = {
+              j = "normal_mode";
+            };
+          };
+        };
+        editor = {
+          auto-save = true;
+          completion-trigger-len = 1;
+          line-number = "relative";
+          rulers = [80];
+          whitespace = {
+            render = {
+              space = "all";
+              tab = "all";
+              newline = "all";
+            };
+            characters = {
+              nbsp = "⍽";
+              tab = "→";
+              newline = "⏎";
+              tabpad = "·"; 
+            };
+          };
+          file-picker = {
+            hidden = false;
+          };
+          cursor-shape = {
+            insert = "bar";
+            normal = "underline";
+            select = "underline";
+          };
+          lsp = {
+            display-inlay-hints = true;
+            snippets = true;
+          };
+        };
+      };
   };
-#
+
 
 
 
@@ -496,9 +538,35 @@ in
       Projects = "kitty --session /home/daniel/.config/home-manager/extraconfig/kitty-sessions/school.conf & disown";
       Hyprland = "Hyprland -c /home/daniel/.config/home-manager/extraconfig/hyprland/hyprland.conf";
       hyprpaper = "hyprpaper -c /home/daniel/home-manager/extraconfig/hyprpaper/hyprpaper.conf";
+      nnn = "nnn -P p";
+      #ranger = "ranger -r ~/.config/home-manager/extraconfig/ranger/";
       #pdferlang = " zathura ~/School/erlang/*.pdf ~/School/erlang/cse381/*.pdf ~/School/erlang/cse481/*.pdf & disown";
     };
     bashrcExtra = ''
+
+  if [ -f /home/daniel/.config/home-manager/.thing ]; then
+    . /home/daniel/.config/home-manager/.thing
+  fi
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
       neofetch --config /home/daniel/.config/home-manager/extraconfig/neofetch.conf --kitty --image_size none --source /home/daniel/.config/home-manager/images/csmaller.png --memory_percent on --memory_unit gib --os_arch off --packages tiny --shell_version off --color_blocks on 
       #function pdf() { zathura  "$@" & disown; }
       function Pdf() { zathura  ./*.pdf & disown; }
@@ -675,6 +743,30 @@ return {
         show-failed-attempts = true;
     };
   }; 
+
+  programs.papis = {
+    enable = true;
+    libraries = {
+      papers = {
+        isDefault = true;
+        settings = {
+          dir = "~/Papers";
+          opentool = "zathura";
+          picktool = "fzf";
+          editor = "hx";
+          file-browser = "ranger";
+          add-edit = true;
+        };
+      };
+    };
+  };
+
+
+
+
+
+
+
 
 
 

@@ -1,0 +1,3 @@
+export NNN_FIFO=/tmp/nnn.fifo
+sh -c "$(curl -Ls https://raw.githubusercontent.com/jarun/nnn/master/plugins/getplugs)"
+export NNN_PLUG='f:finder;o:fzopen;p:mocq;d:diffs;t:nmount;v:preview-tui'
