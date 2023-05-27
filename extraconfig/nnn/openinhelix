@@ -1,0 +1,3 @@
+# Remove option --tab for new window
+wezterm start -- hx $* & disown -a
+

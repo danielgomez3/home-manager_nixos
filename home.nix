@@ -45,7 +45,6 @@ in
     ripgrep-all
     ripgrep
     fd
-    fzf
     # Dwm/i3wm deps.
     #xmenu
     #gnumake
@@ -102,11 +101,15 @@ in
     imgcat
     # File traversal/Project management
     # For nnn:
-    nnn
     poppler_utils 
     bat
     ffmpegthumbnailer
     glow
+    jump
+    autojump
+    fzf
+    mpv
+    svox
     # Mime type stuff:
     xdg-utils
     # Terminal Emulator:
@@ -152,8 +155,24 @@ in
     };
     defaultApplications = {
       "application/pdf" = ["org.pwmt.zathura.desktop"];
+      "text/plain" = ["Helix-wezterm.desktop"];
     };
   };
+  
+  # Xdg desktop entries
+  xdg.desktopEntries = {
+    Helix-wezterm = {
+      name = "Helix-wezterm";
+      genericName = "Daniel's App";
+      exec = ''
+      wezterm start -- hx %U \& disown -a
+      '';
+      terminal = false;
+      categories = [ "Network" "WebBrowser" ];
+      mimeType = [ "text/html" "text/xml" ];
+    };
+  };
+
   
       
         
@@ -556,24 +575,17 @@ in
       Projects = "kitty --session /home/daniel/.config/home-manager/extraconfig/kitty-sessions/school.conf & disown";
       Hyprland = "Hyprland -c /home/daniel/.config/home-manager/extraconfig/hyprland/hyprland.conf";
       hyprpaper = "hyprpaper -c /home/daniel/home-manager/extraconfig/hyprpaper/hyprpaper.conf";
-      n = "nnn -P p";
+      n = "nnn -r -e -P p";
       #ranger = "ranger -r ~/.config/home-manager/extraconfig/ranger/";
       #pdferlang = " zathura ~/School/erlang/*.pdf ~/School/erlang/cse381/*.pdf ~/School/erlang/cse481/*.pdf & disown";
     };
     bashrcExtra = ''
+      export PATH=$PATH:/home/daniel/.config/home-manager/extraconfig/nnn/
+
+
       if [ -f /home/daniel/.config/home-manager/.thing ]; then
         . /home/daniel/.config/home-manager/.thing
       fi
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -790,12 +802,17 @@ programs.zathura = {
 
 
 
+  home.sessionPath = [
+    "$HOME/.config/home-manager/extraconfig/nnn/"
+  ];
 
   home.sessionVariables = {
     READER = "zathura";
   };
 
-
+  programs.nnn = {
+    enable = true;
+  };
 
 
 
