@@ -337,3 +337,34 @@
 11:54:48.402954 table@remove removed @68
 11:54:48.402976 table@remove removed @65
 11:54:48.402998 table@remove removed @64
+=============== May 29, 2023 (MDT) ===============
+09:11:51.992764 log@legend F·NumFile S·FileSize N·Entry C·BadEntry B·BadBlock Ke·KeyError D·DroppedEntry L·Level Q·SeqNum T·TimeElapsed
+09:11:51.993630 version@stat F·[0 1] S·401B[0B 401B] Sc·[0.00 0.00]
+09:11:51.993659 db@open opening
+09:11:51.993728 journal@recovery F·1
+09:11:51.996765 journal@recovery recovering @75
+09:11:52.004266 memdb@flush created L0@78 N·12 S·282B "\x04de..can,v632":"\nla..ime,v633"
+09:11:52.009866 version@stat F·[1 1] S·683B[282B 401B] Sc·[0.25 0.00]
+09:11:52.036841 db@janitor F·5 G·1
+09:11:52.036917 db@janitor removing table-74
+09:11:52.037094 db@open done T·43.423941ms
+=============== May 31, 2023 (MDT) ===============
+07:58:42.706528 table@compaction L0·1 -> L1·1 S·683B Q·687
+07:58:42.723441 table@build created L1@81 N·12 S·401B "\x04de..can,v632":"\npr..ion,v601"
+07:58:42.723580 version@stat F·[0 1] S·401B[0B 401B] Sc·[0.00 0.00]
+07:58:42.730808 table@compaction committed F-1 S-282B Ke·0 D·12 T·24.15598ms
+07:58:42.731091 table@remove removed @77
+=============== Jun 2, 2023 (MDT) ===============
+09:29:11.204600 db@close closing
+09:29:11.211118 db@close done T·5.686169ms
+=============== Jun 2, 2023 (MDT) ===============
+09:29:32.438575 log@legend F·NumFile S·FileSize N·Entry C·BadEntry B·BadBlock Ke·KeyError D·DroppedEntry L·Level Q·SeqNum T·TimeElapsed
+09:29:32.439620 version@stat F·[0 1] S·401B[0B 401B] Sc·[0.00 0.00]
+09:29:32.439635 db@open opening
+09:29:32.439673 journal@recovery F·1
+09:29:32.442018 journal@recovery recovering @79
+09:29:32.449098 memdb@flush created L0@82 N·106 S·1KiB "\x04de..can,v742":"\nla..ime,v638"
+09:29:32.449669 version@stat F·[1 1] S·1KiB[1KiB 401B] Sc·[0.25 0.00]
+09:29:32.481023 db@janitor F·5 G·1
+09:29:32.481037 db@janitor removing table-78
+09:29:32.481122 db@open done T·41.479327ms

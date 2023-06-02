@@ -36,6 +36,9 @@ in
     tex
     python3
     R-with-my-packages
+    nodejs
+    nodePackages_latest.vscode-html-languageserver-bin
+    nodePackages_latest.typescript-language-server
     # Neovim/Text editor deps.
     erlang-ls
     erlang
@@ -101,6 +104,7 @@ in
     imgcat
     # File traversal/Project management
     # For nnn:
+    findutils
     poppler_utils 
     bat
     ffmpegthumbnailer
@@ -163,14 +167,24 @@ in
   xdg.desktopEntries = {
     Helix-wezterm = {
       name = "Helix-wezterm";
-      genericName = "Daniel's App";
+      genericName = "Daniel's App: helix-wezterm";
       exec = ''
-      wezterm start -- hx %U \& disown -a
+      wezterm start -- hx \$\* \& disown -a
       '';
       terminal = false;
       categories = [ "Network" "WebBrowser" ];
-      mimeType = [ "text/html" "text/xml" ];
+      mimeType = [ "text/html" "text/xml" "text/plain" ];
     };
+#        nnn = {
+#      name = "nnn";
+#      genericName = "Daniel's App: nnn";
+#      exec = ''
+#      wezterm start --always-new-process nnn -r -e -P p 
+#      '';
+#      terminal = false;
+#      categories = [ "Network" "WebBrowser" ];
+#    };
+
   };
 
   
@@ -512,13 +526,6 @@ in
             enable = true;
             max-wrap = 25;
           };
-        keys = {
-          insert = {
-            j = {
-              j = "normal_mode";
-            };
-          };
-        };
         editor = {
           auto-save = true;
           completion-trigger-len = 1;
@@ -546,7 +553,7 @@ in
             select = "underline";
           };
           lsp = {
-            display-inlay-hints = true;
+            #display-inlay-hints = true;
             snippets = true;
           };
         };
@@ -568,88 +575,88 @@ in
 
 
 
-  programs.bash = {
-    enable = true;
-    shellAliases = {
-      Pdferlang = " zathura ~/School/erlang/*.pdf ~/School/erlang/cse381/*.pdf ~/School/erlang/cse481/*.pdf ~/School/erlang/cse481/grading/*.pdf ~/School/erlang/cse381/grading/*.pdf & disown";
-      Projects = "kitty --session /home/daniel/.config/home-manager/extraconfig/kitty-sessions/school.conf & disown";
-      Hyprland = "Hyprland -c /home/daniel/.config/home-manager/extraconfig/hyprland/hyprland.conf";
-      hyprpaper = "hyprpaper -c /home/daniel/home-manager/extraconfig/hyprpaper/hyprpaper.conf";
-      n = "nnn -r -e -P p";
-      #ranger = "ranger -r ~/.config/home-manager/extraconfig/ranger/";
-      #pdferlang = " zathura ~/School/erlang/*.pdf ~/School/erlang/cse381/*.pdf ~/School/erlang/cse481/*.pdf & disown";
-    };
-    bashrcExtra = ''
-      export PATH=$PATH:/home/daniel/.config/home-manager/extraconfig/nnn/
-
-
-      if [ -f /home/daniel/.config/home-manager/.thing ]; then
-        . /home/daniel/.config/home-manager/.thing
-      fi
-
-
-
-
-
-
-
-
-
-    
-      neofetch --config /home/daniel/.config/home-manager/extraconfig/neofetch.conf --kitty --image_size none --source /home/daniel/.config/home-manager/images/csmaller.png --memory_percent on --memory_unit gib --os_arch off --packages tiny --shell_version off --color_blocks on 
-      #function pdf() { zathura  "$@" & disown; }
-      function Pdf() { zathura  ./*.pdf & disown; }
-
-    ''; 
-
-};
-
-
-programs.zathura = {
-  enable = true;
-  extraConfig = ''
-  set selection-clipboard clipboard
-
-  set default-fg                "#C6D0F5"
-  set default-bg 			          "#303446"
-
-  set completion-bg		          "#414559"
-  set completion-fg		          "#C6D0F5"
-  set completion-highlight-bg	  "#575268"
-  set completion-highlight-fg	  "#C6D0F5"
-  set completion-group-bg		    "#414559"
-  set completion-group-fg		    "#8CAAEE"
-
-  set statusbar-fg		          "#C6D0F5"
-  set statusbar-bg		          "#414559"
-
-  set notification-bg		        "#414559"
-  set notification-fg		        "#C6D0F5"
-  set notification-error-bg	    "#414559"
-  set notification-error-fg	    "#E78284"
-  set notification-warning-bg	  "#414559"
-  set notification-warning-fg	  "#FAE3B0"
-
-  set inputbar-fg			          "#C6D0F5"
-  set inputbar-bg 		          "#414559"
-
-  set recolor-lightcolor		    "#303446"
-  set recolor-darkcolor		      "#C6D0F5"
-
-  set index-fg			            "#C6D0F5"
-  set index-bg			            "#303446"
-  set index-active-fg		        "#C6D0F5"
-  set index-active-bg		        "#414559"
-
-  set render-loading-bg		      "#303446"
-  set render-loading-fg		      "#C6D0F5"
-
-  set highlight-color		        "#575268"
-  set highlight-fg              "#F4B8E4"
-  set highlight-active-color	  "#F4B8E4"
-  '';
-};
-
+#  programs.bash = {
+#    enable = true;
+#    shellAliases = {
+#      Pdferlang = " zathura ~/School/erlang/*.pdf ~/School/erlang/cse381/*.pdf ~/School/erlang/cse481/*.pdf ~/School/erlang/cse481/grading/*.pdf ~/School/erlang/cse381/grading/*.pdf & disown";
+#      Projects = "kitty --session /home/daniel/.config/home-manager/extraconfig/kitty-sessions/school.conf & disown";
+#      Hyprland = "Hyprland -c /home/daniel/.config/home-manager/extraconfig/hyprland/hyprland.conf";
+#      hyprpaper = "hyprpaper -c /home/daniel/home-manager/extraconfig/hyprpaper/hyprpaper.conf";
+#      n = "nnn -r -e -P p";
+#      #ranger = "ranger -r ~/.config/home-manager/extraconfig/ranger/";
+#      #pdferlang = " zathura ~/School/erlang/*.pdf ~/School/erlang/cse381/*.pdf ~/School/erlang/cse481/*.pdf & disown";
+#    };
+#    bashrcExtra = ''
+#      export PATH=$PATH:/home/daniel/.config/home-manager/extraconfig/nnn/
+#
+#
+#      if [ -f /home/daniel/.config/home-manager/.thing ]; then
+#        . /home/daniel/.config/home-manager/.thing
+#      fi
+#
+#
+#
+#
+#
+#
+#
+#
+#
+#    
+#      neofetch --config /home/daniel/.config/home-manager/extraconfig/neofetch.conf --kitty --image_size none --source /home/daniel/.config/home-manager/images/csmaller.png --memory_percent on --memory_unit gib --os_arch off --packages tiny --shell_version off --color_blocks on 
+#      #function pdf() { zathura  "$@" & disown; }
+#      function Pdf() { zathura  ./*.pdf & disown; }
+#
+#    ''; 
+#
+#};
+#
+#
+#programs.zathura = {
+#  enable = true;
+#  extraConfig = ''
+#  set selection-clipboard clipboard
+#
+#  set default-fg                "#C6D0F5"
+#  set default-bg 			          "#303446"
+#
+#  set completion-bg		          "#414559"
+#  set completion-fg		          "#C6D0F5"
+#  set completion-highlight-bg	  "#575268"
+#  set completion-highlight-fg	  "#C6D0F5"
+#  set completion-group-bg		    "#414559"
+#  set completion-group-fg		    "#8CAAEE"
+#
+#  set statusbar-fg		          "#C6D0F5"
+#  set statusbar-bg		          "#414559"
+#
+#  set notification-bg		        "#414559"
+#  set notification-fg		        "#C6D0F5"
+#  set notification-error-bg	    "#414559"
+#  set notification-error-fg	    "#E78284"
+#  set notification-warning-bg	  "#414559"
+#  set notification-warning-fg	  "#FAE3B0"
+#
+#  set inputbar-fg			          "#C6D0F5"
+#  set inputbar-bg 		          "#414559"
+#
+#  set recolor-lightcolor		    "#303446"
+#  set recolor-darkcolor		      "#C6D0F5"
+#
+#  set index-fg			            "#C6D0F5"
+#  set index-bg			            "#303446"
+#  set index-active-fg		        "#C6D0F5"
+#  set index-active-bg		        "#414559"
+#
+#  set render-loading-bg		      "#303446"
+#  set render-loading-fg		      "#C6D0F5"
+#
+#  set highlight-color		        "#575268"
+#  set highlight-fg              "#F4B8E4"
+#  set highlight-active-color	  "#F4B8E4"
+#  '';
+#};
+#
 
   programs.obs-studio = {
     package = unstable.obs-studio;
@@ -813,6 +820,12 @@ programs.zathura = {
   programs.nnn = {
     enable = true;
   };
+
+
+
+
+
+  
 
 
 
