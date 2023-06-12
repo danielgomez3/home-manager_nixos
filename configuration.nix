@@ -129,19 +129,19 @@ in {
   networking.networkmanager.wifi.backend = "iwd";
 	
 
-  # Shell (needs to be done here and home.nix):
-  #users.users.daniel.shell = pkgs.zsh;
-  #environment.shells = with pkgs; [ zsh ]; # For errors.
-  #programs.zsh = {
-  #enable = true;
-  #histSize = 2000;
-  #histFile = "$HOME/.zsh_history";
-  #shellAliases = {
-  #    ll = "ls -l";
-  #    update = "sudo nixos-rebuild switch";
-  #    vi = "nvim";
-  #};
-  #};
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -265,64 +265,7 @@ fonts.fonts = with pkgs; [
 #];
 
 
-#users.defaultUserShell = pkgs.zsh;
-#programs.zsh = {
-#  enable = true;
-#  shellAliases = {
-#    vi = "nvim";
-#    hx = "hx --config /home/daniel/.config/home-manager/extraconfig/helix/config.toml";
-#    ll = "ls -l";
-#    update = "sudo nixos-rebuild switch";
-#    };
-#  };
-#programs.bash = {
-#  enableCompletion = true;
-#  shellAliases = {
-#    ll = "ls -l";
-#    update = "sudo nixos-rebuild switch";
-#    vi = "nvim";
-#    #hx = "hx --config /home/daniel/.config/home-manager/extraconfig/helix/config.toml";
-#  };
-#  promptInit =  ''
-#    # PS1="\n\[\033[01;32m\]\u@\h $\[\033[00m\]\[\033[01;36m\] \w λ\[\033[00m\]\n"
-#    PS1="\n\[\033[01;32m\]\u@\h λ\[\033[00m\]\[\033[01;36m\] \w \[\033[00m\]\n"
-#    echo -e -n "\x1b[\x33 q" # changes to blinking underline
-#    stty -ixon # Turn off ctrl-s to pause terminal
-#
-#
-#
-#
-#
-#
-#
-#alias nnn='~/bin/nnn -de' # -d for details and -e to open files in $VISUAL (for other options, see 'man nnn'...)
-##-----
-#export NNN_OPTS="H" # 'H' shows the hidden files. Same as option -H (so 'nnn -deH')
-## export NNN_OPTS="deH" # if you prefer to have all the options at the same place
-#export LC_COLLATE="C" # hidden files on top
-#export NNN_FIFO="/tmp/nnn.fifo" # temporary buffer for the previews
-#export NNN_FCOLORS="AAAAE631BBBBCCCCDDDD9999" # feel free to change the colors
-#export NNN_PLUG='p:preview-tui' # many other plugins are available here: https://github.com/jarun/nnn/tree/master/plugins
-#export SPLIT='v' # to split Kitty vertically
-##-----
-#n () # to cd on quit
-#{
-#    if [ -n $NNNLVL ] && [ "${NNNLVL:-0}" -ge 1 ]; then
-#        echo "nnn is already running"
-#        return
-#    fi
-#    export NNN_TMPFILE="${XDG_CONFIG_HOME:-$HOME/.config}/nnn/.lastd"
-#    nnn "$@"
-#    if [ -f "$NNN_TMPFILE" ]; then
-#            . "$NNN_TMPFILE"
-#            rm -f "$NNN_TMPFILE" > /dev/null
-#    fi
-#}
-#
-#    
-#
-#    '';
-#}; 
+ 
 
 
   # Steam:

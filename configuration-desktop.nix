@@ -129,75 +129,12 @@ in {
   networking.networkmanager.wifi.backend = "iwd";
 	
 
-  # Shell (needs to be done here and home.nix):
-  #users.users.daniel.shell = pkgs.zsh;
-  #environment.shells = with pkgs; [ zsh ]; # For errors.
-  #programs.zsh = {
-  #enable = true;
-  #histSize = 2000;
-  #histFile = "$HOME/.zsh_history";
-  #shellAliases = {
-  #    ll = "ls -l";
-  #    update = "sudo nixos-rebuild switch";
-  #    vi = "nvim";
-  #};
-  #};
 
 
 
-  
-#  # Dwm:
-#  services.xserver.displayManager.lightdm.enable = false;
-#  services.xserver.displayManager.startx.enable = true;
-#  services.xserver.windowManager.dwm.enable = true;
-#  hardware.opengl.enable = true;
-#  services.xserver.enable = true;
-#
-#
-#  # Dwm:
-#  nixpkgs.overlays = [ (self: super: {
-#    dwm = super.dwm.overrideAttrs (old: {
-#      pname = "dwm";
-#      version = "6.2";
-#      src = super.fetchurl {
-#        url = "https://dl.suckless.org/dwm/dwm-6.2.tar.gz";
-#        sha256 = "l5AuLgB6rqo8bjvtH4F4W4F7dBOUfx2x07YrjaTNEQ4=";
-#      };
-#      patches = [
-#        (super.fetchpatch {
-#          url = "https://raw.githubusercontent.com/danielgomez3/dwmpatch/main/new.diff";
-#          sha256 = "0bzr1mz9kdhkvh85qi9f5g4bw6amv77qzgffl090829jlcb3vimy";
-#        })
-#      ];
-#    });
-#}) ];
-#
 
-  # I3WM:
-  #environment.pathsToLink = [ "/libexec" ]; # links /libexec from derivations to /run/current-system/sw 
-  #services.xserver = {
-  #  enable = true;
 
-  #  desktopManager = {
-  #    xterm.enable = false;
-  #  };
-  # 
-  #  displayManager = {
-  #      defaultSession = "none+i3";
-  #  };
 
-  #  windowManager.i3 = {
-  #    package = pkgs.i3-gaps;
-  #    enable = true;
-  #    configFile = /home/daniel/.config/home-manager/extraconfig/i3/i3config;
-  #    extraPackages = with pkgs; [
-  #      dmenu #application launcher most people use
-  #      i3status # gives you the default i3 status bar
-  #      i3lock #default i3 screen locker
-  #      i3blocks #if you are planning on using i3blocks over i3status
-  #   ];
-  #  };
-  #};
 
 
 
@@ -209,9 +146,6 @@ in {
 
 
   
-  
-
-
   # Don't ask users of group 'wheel' for a password:
   security.sudo.wheelNeedsPassword = false; 
   
@@ -265,33 +199,7 @@ fonts.fonts = with pkgs; [
 #];
 
 
-#users.defaultUserShell = pkgs.zsh;
-#programs.zsh = {
-#  enable = true;
-#  shellAliases = {
-#    vi = "nvim";
-#    hx = "hx --config /home/daniel/.config/home-manager/extraconfig/helix/config.toml";
-#    ll = "ls -l";
-#    update = "sudo nixos-rebuild switch";
-#    };
-#  };
-users.defaultUserShell = pkgs.bash;
-programs.bash = {
-  enableCompletion = true;
-  shellAliases = {
-    ll = "ls -l";
-    update = "sudo nixos-rebuild switch";
-    vi = "nvim";
-    #hx = "hx --config /home/daniel/.config/home-manager/extraconfig/helix/config.toml";
-  };
-  promptInit =  ''
-    # PS1="\n\[\033[01;32m\]\u@\h $\[\033[00m\]\[\033[01;36m\] \w λ\[\033[00m\]\n"
-    PS1="\n\[\033[01;32m\]\u@\h λ\[\033[00m\]\[\033[01;36m\] \w \[\033[00m\]\n"
-    echo -e -n "\x1b[\x33 q" # changes to blinking underline
-    stty -ixon # Turn off ctrl-s to pause terminal
-
-    '';
-}; 
+ 
 
 
   # Steam:
@@ -326,9 +234,36 @@ programs.bash = {
     })
   ];
 
+  # This is for swalock
   programs.sway = {
     enable = true;
   };
+
+users.defaultUserShell = pkgs.fish;
+
+  programs.fish = {
+    enable = true;
+    shellInit = 
+      "
+      neofetch --config /home/daniel/.config/home-manager/extraconfig/neofetch.conf --kitty --image_size none --source /home/daniel/.config/home-manager/images/csmaller.png --memory_percent on --memory_unit gib --os_arch off --packages tiny --shell_version off --color_blocks on 
+      set -U fish_greeting
+      ";
+      #function Pdf() { zathura  ./*.pdf & disown; }
+      #function pdf() { zathura  "$@" & disown; }
+    shellAliases = {
+      Pdferlang = " zathura ~/School/erlang/*.pdf ~/School/erlang/cse381/*.pdf ~/School/erlang/cse481/*.pdf ~/School/erlang/cse481/grading/*.pdf ~/School/erlang/cse381/grading/*.pdf & disown";
+      Projects = "kitty --session /home/daniel/.config/home-manager/extraconfig/kitty-sessions/school.conf & disown";
+      Hyprland = "Hyprland -c /home/daniel/.config/home-manager/extraconfig/hyprland/hyprland.conf";
+      hyprpaper = "hyprpaper -c /home/daniel/home-manager/extraconfig/hyprpaper/hyprpaper.conf";
+      n = "nnn -r -e -P p";
+    };
+  };
+
+  programs.starship = {
+    enable = true;
+  };
+
+
 
 
 }

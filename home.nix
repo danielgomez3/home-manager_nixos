@@ -30,9 +30,15 @@ in
 
     in
   [
-    # Qutebrowser deps:
-    #python39Packages.adblock
+    # Terminal Emulator:
+    unstable.wezterm
+    xorg.xcursorgen
+    xorg.xcursorthemes
     # Coding:
+    #eclipses.eclipse-jee
+    #jetbrains.webstorm
+    #sublime
+    vscode-fhs
     tex
     python3
     R-with-my-packages
@@ -48,22 +54,29 @@ in
     ripgrep-all
     ripgrep
     fd
-    # Dwm/i3wm deps.
-    #xmenu
-    #gnumake
-    #qutebrowser
-    #polybar
-    #autotiling
-    # Xournalpp
+    # Xournalpp & deps.
     xournalpp
     gtk3 
-    # Kitty terminal dep.
+    # Kitty terminal deps.
     libxkbcommon
     # Rediff command
     patchutils
-
+    # File traversal/Project management
+    # For nnn:
+    findutils
+    poppler_utils 
+    bat
+    ffmpegthumbnailer
+    glow
+    jump
+    autojump
+    fzf
+    mpv
+    svox
+    # Mime type stuff:
+    xdg-utils
     # Etc.:
-    zathura
+   zathura
     pavucontrol
     picom
     rofi
@@ -102,24 +115,7 @@ in
     grim
     w3m
     imgcat
-    # File traversal/Project management
-    # For nnn:
-    findutils
-    poppler_utils 
-    bat
-    ffmpegthumbnailer
-    glow
-    jump
-    autojump
-    fzf
-    mpv
-    svox
-    # Mime type stuff:
-    xdg-utils
-    # Terminal Emulator:
-    unstable.wezterm
-    xorg.xcursorgen
-    xorg.xcursorthemes
+    vimb
     
   ];
 
@@ -152,6 +148,8 @@ in
 
   
   # Change Default apps:
+  nixpkgs.config.allowUnfree = true;
+
   xdg.mimeApps = {
     enable = true;
     associations.added = {
@@ -198,164 +196,6 @@ in
   
   
   
-  # Kitty Terminal:
-  programs.kitty = {
-    enable = true;
-    font.size = 10;
-    #font.name = "SauceCodePro Nerd Font";
-    font.name = "Fira Code";
-    settings = {
-      enable_audio_bell = false;
-      confirm_os_window_close = 0;
-    };
-    # This has to happen because kitty-theme derivation is broken:
-    extraConfig = "
-    background_opacity 0.8
-    #foreground              #C6D0F5
-    #background              #303446
-    #selection_foreground    #303446
-    #selection_background    #F2D5CF
-    #startup_session $HOME/.config/home-manager/extraconfig/kitty-sessions/school.conf
-      # WINDOW PADDING:
-      window_padding_width 2
-      # BUG FIX:
-      #symbol_map U+f101-U+f21d nonicons
-      # NAVIGATION
-      map ctrl+shift+enter new_window_with_cwd 
-      map ctrl+shift+l next_window 
-      map ctrl+shift+h previous_window 
-      map ctrl+shift+q close_window 
-      map ctrl+shift+; next_layout
-      #THEME:
-
-
-
-
-## name:     Catppuccin Kitty Latte
-## author:   Catppuccin Org
-## license:  MIT
-## upstream: https://github.com/catppuccin/kitty/blob/main/latte.conf
-## blurb:    Soothing pastel theme for the high-spirited!
-
-
-
-#   # The basic colors
-#   foreground              #4C4F69
-#   background              #EFF1F5
-#   selection_foreground    #EFF1F5
-#   selection_background    #DC8A78
-#   
-#   # Cursor colors
-#   cursor                  #DC8A78
-#   cursor_text_color       #EFF1F5
-#   
-#   # URL underline color when hovering with mouse
-#   url_color               #DC8A78
-#   
-#   # Kitty window border colors
-#   active_border_color     #7287FD
-#   inactive_border_color   #9CA0B0
-#   bell_border_color       #DF8E1D
-#   
-#   # OS Window titlebar colors
-#   wayland_titlebar_color system
-#   macos_titlebar_color system
-#   
-#   # Tab bar colors
-#   active_tab_foreground   #EFF1F5
-#   active_tab_background   #353240
-#   inactive_tab_foreground #4C4F69
-#   inactive_tab_background #9CA0B0
-#   tab_bar_background      #BCC0CC
-#   
-#   # Colors for marks (marked text in the terminal)
-#   mark1_foreground #EFF1F5
-#   mark1_background #7287fD
-#   mark2_foreground #EFF1F5
-#   mark2_background #8839EF
-#   mark3_foreground #EFF1F5
-#   mark3_background #209FB5
-#   
-#   # The 16 terminal colors
-#   
-#   # black
-#   color0 #5C5F77
-#   color8 #6C6F85
-#   
-#   # red
-#   color1 #D20F39
-#   color9 #D20F39
-#   
-#   # green
-#   color2  #40A02B
-#   color10 #40A02B
-#   
-#   # yellow
-#   color3  #DF8E1D
-#   color11 #DF8E1D
-#   
-#   # blue
-#   color4  #1E66F5
-#   color12 #1E66F5
-#   
-#   # magenta
-#   color5  #EA76CB
-#   color13 #EA76CB
-#   
-#   # cyan
-#   color6  #179299
-#   color14 #179299
-#   
-#   # white
-#   color7  #ACB0BE
-#   color15 #BCC0CC
-#   
-#   
-#   
-#   
-#   #foreground #979eab
-#   #background #282c34
-#   #cursor #cccccc
-#   #color0 #282c34
-#   #color1 #e06c75
-#   #color2 #98c379
-#   #color3 #e5c07b
-#   #color4 #61afef
-#   #color5 #be5046
-#   #color6 #56b6c2
-#   #color7 #979eab
-#   #color8 #393e48
-#   #color9 #d19a66
-#   #color10 #56b6c2
-#   #color11 #e5c07b
-#   #color12 #61afef
-#   #color13 #be5046
-#   #color14 #56b6c2
-#   #color15 #abb2bf
-#   #selection_foreground #282c34
-#   #selection_background #979eab
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-";
-
-
-
-
-  };
-  
-
     
   
 
@@ -367,6 +207,7 @@ in
     };
     extraConfig = 
     ''
+    c.scrolling.smooth = True
     c.url.start_pages = ['google.com']
 
     import os
@@ -434,75 +275,6 @@ in
   };  
  
   
-  nixpkgs.config.allowUnfree = true;
-
-  
-  # Neovim
-
-   programs.neovim = {
-    enable = true;
-    extraConfig = lib.fileContents "/home/daniel/.config/home-manager/extraconfig/nvim/vimrc.vim";
-    plugins = [
-      pkgs.vimPlugins.nvim-tree-lua
-      {
-        plugin = pkgs.vimPlugins.gruvbox-nvim;
-        config = ''
-        set background=light " or light if you want light mode
-        colorscheme gruvbox
-        '';
-      }
-      {
-        plugin = pkgs.vimPlugins.nvim-lspconfig;
-        config = ''
-        lua require'lspconfig'.erlangls.setup{}
-        lua require'lspconfig'.texlab.setup{}
-        lua require'lspconfig'.ltex.setup{"markdown", "org", "tex"}
-        '';
-      }
-      {
-        plugin = pkgs.vimPlugins.packer-nvim;
-      }
-
-      {
-        plugin = pkgs.vimPlugins.vim-nix;
-      }
-      {
-        plugin = pkgs.vimPlugins.telescope-nvim;
-      }
-     {
-        plugin = pkgs.vimPlugins.nvim-treesitter;
-      }
-     {
-        plugin = pkgs.vimPlugins.vim-startify;
-      }
-     {
-        plugin = pkgs.vimPlugins.lualine-nvim;
-      }
-     {
-        plugin = pkgs.vimPlugins.nvim-web-devicons;
-      }
-     {
-        plugin = pkgs.vimPlugins.telescope-file-browser-nvim;
-      }
-     {
-        plugin = pkgs.vimPlugins.vim-easymotion;
-      }
-     {
-        plugin = pkgs.vimPlugins.vim-surround;
-      }
-     {
-        plugin = pkgs.vimPlugins.markdown-preview-nvim;
-      }
-     {
-        plugin = pkgs.vimPlugins.vim-fugitive;
-      }
-    
-    ];
-  };
-  
-
-
-
 
   # Helix editor:
   programs.helix = {
@@ -564,99 +336,6 @@ in
 
 
 
-  # ZSH:
-#  programs.zsh = {
-#  enable = true;
-# initExtra = 
-#    "
-#    neofetch --config /home/daniel/.config/home-manager/extraconfig/neofetch.conf --kitty --image_size none --source /home/daniel/.config/home-manager/images/blossomsmall.png --memory_percent on --memory_unit gib --os_arch off --packages tiny --shell_version off --color_blocks on
-#    ";
-#  };
-
-
-
-#  programs.bash = {
-#    enable = true;
-#    shellAliases = {
-#      Pdferlang = " zathura ~/School/erlang/*.pdf ~/School/erlang/cse381/*.pdf ~/School/erlang/cse481/*.pdf ~/School/erlang/cse481/grading/*.pdf ~/School/erlang/cse381/grading/*.pdf & disown";
-#      Projects = "kitty --session /home/daniel/.config/home-manager/extraconfig/kitty-sessions/school.conf & disown";
-#      Hyprland = "Hyprland -c /home/daniel/.config/home-manager/extraconfig/hyprland/hyprland.conf";
-#      hyprpaper = "hyprpaper -c /home/daniel/home-manager/extraconfig/hyprpaper/hyprpaper.conf";
-#      n = "nnn -r -e -P p";
-#      #ranger = "ranger -r ~/.config/home-manager/extraconfig/ranger/";
-#      #pdferlang = " zathura ~/School/erlang/*.pdf ~/School/erlang/cse381/*.pdf ~/School/erlang/cse481/*.pdf & disown";
-#    };
-#    bashrcExtra = ''
-#      export PATH=$PATH:/home/daniel/.config/home-manager/extraconfig/nnn/
-#
-#
-#      if [ -f /home/daniel/.config/home-manager/.thing ]; then
-#        . /home/daniel/.config/home-manager/.thing
-#      fi
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#    
-#      neofetch --config /home/daniel/.config/home-manager/extraconfig/neofetch.conf --kitty --image_size none --source /home/daniel/.config/home-manager/images/csmaller.png --memory_percent on --memory_unit gib --os_arch off --packages tiny --shell_version off --color_blocks on 
-#      #function pdf() { zathura  "$@" & disown; }
-#      function Pdf() { zathura  ./*.pdf & disown; }
-#
-#    ''; 
-#
-#};
-#
-#
-#programs.zathura = {
-#  enable = true;
-#  extraConfig = ''
-#  set selection-clipboard clipboard
-#
-#  set default-fg                "#C6D0F5"
-#  set default-bg 			          "#303446"
-#
-#  set completion-bg		          "#414559"
-#  set completion-fg		          "#C6D0F5"
-#  set completion-highlight-bg	  "#575268"
-#  set completion-highlight-fg	  "#C6D0F5"
-#  set completion-group-bg		    "#414559"
-#  set completion-group-fg		    "#8CAAEE"
-#
-#  set statusbar-fg		          "#C6D0F5"
-#  set statusbar-bg		          "#414559"
-#
-#  set notification-bg		        "#414559"
-#  set notification-fg		        "#C6D0F5"
-#  set notification-error-bg	    "#414559"
-#  set notification-error-fg	    "#E78284"
-#  set notification-warning-bg	  "#414559"
-#  set notification-warning-fg	  "#FAE3B0"
-#
-#  set inputbar-fg			          "#C6D0F5"
-#  set inputbar-bg 		          "#414559"
-#
-#  set recolor-lightcolor		    "#303446"
-#  set recolor-darkcolor		      "#C6D0F5"
-#
-#  set index-fg			            "#C6D0F5"
-#  set index-bg			            "#303446"
-#  set index-active-fg		        "#C6D0F5"
-#  set index-active-bg		        "#414559"
-#
-#  set render-loading-bg		      "#303446"
-#  set render-loading-fg		      "#C6D0F5"
-#
-#  set highlight-color		        "#575268"
-#  set highlight-fg              "#F4B8E4"
-#  set highlight-active-color	  "#F4B8E4"
-#  '';
-#};
-#
 
   programs.obs-studio = {
     package = unstable.obs-studio;
@@ -736,10 +415,10 @@ in
       	bold_brightens_ansi_colors = true,
       	-- Padding
       	window_padding = {
-      		left = 15,
-      		right = 15,
+      		left = 10,
+      		right = 10,
       		top = 10,
-      		bottom = 10,
+      		bottom = 5,
       	},
 
       	-- Tab Bar
@@ -766,12 +445,12 @@ in
 
     timeouts = [
       {
-        timeout = 300;
+        timeout = 550;
         command = "${pkgs.sway}/bin/swaymsg \"output * dpms off\"";
         resumeCommand = "${pkgs.sway}/bin/swaymsg \"output * dpms on\"";
       }
       {
-        timeout = 310;
+        timeout = 710;
         command = "${pkgs.systemd}/bin/loginctl lock-session";
       }
     ];
@@ -780,15 +459,54 @@ in
 
   programs.swaylock = {
     enable = true;
-    settings = {
-        color = "808080";
-        font-size = 24;
-        indicator-idle-visible = false;
-        indicator-radius = 100;
-        line-color = "ffffff";
-        show-failed-attempts = true;
-    };
-  }; 
+#    settings = {
+#        color = "808080";
+#        font-size = 24;
+#        indicator-idle-visible = false;
+#        indicator-radius = 100;
+#        line-color = "ffffff";
+#        show-failed-attempts = true;
+#    };
+        settings = {
+          show-failed-attempts = true;
+          daemonize = true; # Detach from the controlling terminal after locking
+          screenshots = true;
+          ignore-empty-password = true;
+          disable-caps-lock-text = true;
+
+          font = "RobotoMono Nerd Font";
+          font-size = 30;
+
+          clock = true;
+          indicator = true;
+          indicator-idle-visible = true;
+          indicator-radius = 120;
+          indicator-caps-lock = true;
+          line-uses-inside = true;
+
+          effect-blur = "20x3";
+          fade-in = 0.1;
+
+#          ring-color = "#${colorScheme.surface0}";
+#          inside-wrong-color = "#${colorScheme.red}";
+#          ring-wrong-color = "#${colorScheme.red}";
+#          key-hl-color = "#${colorScheme.green}";
+#          bs-hl-color = "#${colorScheme.red}";
+#          ring-ver-color = "#${colorScheme.peach}";
+#          inside-ver-color = "#${colorScheme.peach}";
+#          inside-color = "#${colorScheme.mantle}";
+#          text-color = "#${colorScheme.lavender}";
+#          text-clear-color = "#${colorScheme.mantle}";
+#          text-ver-color = "#${colorScheme.mantle}";
+#          text-wrong-color = "#${colorScheme.mantle}";
+#          text-caps-lock-color = "#${colorScheme.lavender}";
+#          inside-clear-color = "#${colorScheme.teal}";
+#          ring-clear-color = "#${colorScheme.teal}";
+#          inside-caps-lock-color = "#${colorScheme.peach}";
+#          ring-caps-lock-color = "#${colorScheme.surface0}";
+#          separator-color = "#${colorScheme.surface0}";
+        };
+  };
 
   programs.papis = {
     enable = true;
@@ -822,8 +540,78 @@ in
   };
 
 
+  programs.zathura = {
+  enable = true;
+  extraConfig = 
+  ''
+      # Zathura configuration file
+      # See man `man zathurarc'
+
+      # Open document in fit-width mode by default
+      set adjust-open "best-fit"
+
+      # One page per row by default
+      set pages-per-row 1
+
+      #stop at page boundries
+      set scroll-page-aware "true"
+      set smooth-scroll "true"
+      set scroll-full-overlap 0.01
+      set scroll-step 100
+
+      #zoom settings
+      set zoom-min 10
+      set guioptions ""
+
+      # zathurarc-dark
+
+      set font "inconsolata 12"
+      set default-bg "#000000" #00
+      set default-fg "#F7F7F6" #01
+
+      set statusbar-fg "#B0B0B0" #04
+      set statusbar-bg "#202020" #01
+
+      set inputbar-bg "#151515" #00 currently not used
+      set inputbar-fg "#FFFFFF" #02
+
+      set notification-error-bg "#AC4142" #08
+      set notification-error-fg "#151515" #00
+
+      set notification-warning-bg "#AC4142" #08
+      set notification-warning-fg "#151515" #00
+
+      set highlight-color "#F4BF75" #0A
+      set highlight-active-color "#6A9FB5" #0D
+
+      set completion-highlight-fg "#151515" #02
+      set completion-highlight-bg "#90A959" #0C
+
+      set completion-bg "#303030" #02
+      set completion-fg "#E0E0E0" #0C
+
+      set notification-bg "#90A959" #0B
+      set notification-fg "#151515" #00
+
+      set recolor "true"
+      set recolor-lightcolor "#000000" #00
+      set recolor-darkcolor "#E0E0E0" #06
+      set recolor-reverse-video "true"
+      set recolor-keephue "true"
+
+      set scroll-step 50
+
+  '';
+};
 
 
+  #programs.eclipse = {
+  #  enable = true;
+  #  package = pkgs.eclipses.eclipse-jee;
+  #};
+
+ 
+    
 
   
 
