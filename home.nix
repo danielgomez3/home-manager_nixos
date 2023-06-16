@@ -35,22 +35,23 @@ in
     xorg.xcursorgen
     xorg.xcursorthemes
     # Coding:
-    #eclipses.eclipse-jee
-    #jetbrains.webstorm
-    #sublime
     vscode-fhs
     tex
     python3
     R-with-my-packages
     nodejs
+    erlang
+    erlang-ls
+    elixir 
+    elixir-ls
     nodePackages_latest.vscode-html-languageserver-bin
     nodePackages_latest.typescript-language-server
+    python311Packages.grip # View markdown file
+    libgccjit
+    binutils
     # Neovim/Text editor deps.
-    erlang-ls
-    erlang
     ltex-ls
     texlab
-    nodejs
     ripgrep-all
     ripgrep
     fd
@@ -76,7 +77,7 @@ in
     # Mime type stuff:
     xdg-utils
     # Etc.:
-   zathura
+    zathura
     pavucontrol
     picom
     rofi
@@ -112,10 +113,11 @@ in
     imagemagick
     swaylock
     swayidle
-    grim
     w3m
     imgcat
     vimb
+    grim # For screenshots
+    slurp # Select regions
     
   ];
 
@@ -207,7 +209,6 @@ in
     };
     extraConfig = 
     ''
-    c.scrolling.smooth = True
     c.url.start_pages = ['google.com']
 
     import os
@@ -293,7 +294,7 @@ in
     };
     
     settings = {
-        theme = "base16_transparent";
+        theme = "ayu_mirage";
         editor.soft-wrap = {
             enable = true;
             max-wrap = 25;
@@ -544,6 +545,8 @@ in
   enable = true;
   extraConfig = 
   ''
+      # Clipboard
+      set selection-clipboard clipboard
       # Zathura configuration file
       # See man `man zathurarc'
 
@@ -611,7 +614,18 @@ in
   #};
 
  
-    
+  programs.neovim = {
+    enable = true;
+#    #package = pkgs.vimPlugins.nvchad;
+#    plugins = [
+#      {
+#        plugin = nvchad
+#        config = ''
+#        '';
+#      }
+#    ];
+  };
+#    
 
   
 
